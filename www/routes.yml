@@ -29,3 +29,7 @@ admin:
 admin/users:
   controller: Backoffice
   action: manageUsers
+
+admin/edituser:
+  controller: Backoffice
+  action: editUser

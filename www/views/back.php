@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Backoiffce</title>
+    <title>Backoffice</title>
     <meta name="description" content="mon super site en MVC from scratch">
 </head>
 
@@ -13,7 +13,8 @@
 
     <main> <?php include $this->view; ?></main>
     <!-- la vue  -->
-
+    <!-- footer -->
+    <?php include 'footer.php' ?>
 
 </body>
 

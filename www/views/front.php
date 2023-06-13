@@ -11,6 +11,9 @@
     <?php include 'header.php' ?>
     <!-- la vue  -->
     <?php include $this->view; ?>
+
+    <!-- footer -->
+    <?php include 'footer.php' ?>
 </body>
 
 </html>
