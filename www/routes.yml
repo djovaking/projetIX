@@ -6,10 +6,9 @@ contact:
   controller: "Front"
   action: "contact"
 
-se-connecter:
+connexion:
   controller: "Security"
   action: "login"
-
 
 s-inscrire:
   controller: "Security"
@@ -23,6 +22,10 @@ deconnexion:
   controller: "Security"
   action: "logout"
 
-dashboard:
-  controller: "Dashboard"
-  action: "index"
+admin:
+  controller: Backoffice
+  action: index
+
+admin/users:
+  controller: Backoffice
+  action: manageUsers
