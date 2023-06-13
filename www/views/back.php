@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
-    <title>Mon site MVC</title>
+    <title>Backoiffce</title>
     <meta name="description" content="mon super site en MVC from scratch">
 </head>
+
 <body>
-    <h1>Back</h1>
+    <?php include 'header_back.php' ?>
 
 
+    <main> <?php include $this->view; ?></main>
     <!-- la vue  -->
-    <?php include $this->view; ?>
+
 
 </body>
+
 </html>

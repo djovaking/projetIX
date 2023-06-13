@@ -1,8 +1,12 @@
 <?php
+
+
 namespace App\models;
+
 use App\core\ORM;
 
-class User extends ORM {
+class User extends ORM
+{
 
     protected $id = -1;
     protected $firstname;
@@ -12,6 +16,7 @@ class User extends ORM {
     protected $date_inserted;
     protected $date_updated;
     protected $status = 0;
+    protected $role_id = 0;
 
 
     public function __construct()
@@ -151,9 +156,13 @@ class User extends ORM {
     {
         $this->status = $status;
     }
-
-
-
-
-
+    //role
+    public function getRoleId()
+    {
+        return $this->role_id;
+    }
+    public function setRole(int $role_id): void
+    {
+        $this->role_id = $role_id;
+    }
 }
