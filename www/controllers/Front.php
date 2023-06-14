@@ -16,7 +16,7 @@ final class Front
             $userName = $sessionManager->getValue('user_name');
             $bienvenue = "<h2> Bonjour $userName</h2>";
         } else {
-            $bienvenue = "Souhaitez vous vous connectez?";
+            $bienvenue = "Souhaitez-vous vous connecter?";
         }
 
 

@@ -29,3 +29,7 @@ admin:
 admin/users:
   controller: Backoffice
   action: manageUsers
+
+admin/recipes:
+  controller: Backoffice
+  action: manageRecipes

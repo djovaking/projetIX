@@ -10,6 +10,7 @@ class SessionManager
     {
         // Constructeur privé pour empêcher l'instanciation directe
     }
+
     // ici on check s'y a deja une session qui existe, sinon on la start
     public static function getInstance(): self
     {
@@ -54,6 +55,7 @@ class SessionManager
         // Vérifier si l'utilisateur est connecté en vérifiant la présence de la clé 'user_id' dans les variables de session
         return isset($_SESSION['user_id']);
     }
+
     public function getValue(string $key, $default = null)
     {
         // Récupérer la valeur de la variable de session correspondant à la clé fournie

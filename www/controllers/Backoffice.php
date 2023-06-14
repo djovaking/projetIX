@@ -10,7 +10,6 @@ final class Backoffice
 {
     public function index()
     {
-        // 
         $sessionManager = SessionManager::getInstance();
         $roleID = $sessionManager->getSessionData('role_id');
 
@@ -20,8 +19,8 @@ final class Backoffice
         }
 
         $view = new View("backoffice/home", "back");
-        //
     }
+
     public function manageUsers()
     {
         // Create an instance of the ConnectDB class
@@ -32,5 +31,18 @@ final class Backoffice
         // Pass the user data to the view
         $view = new View("backoffice/users", "back");
         $view->assign('users', $users);
+    }
+
+    public function manageRecipes()
+    {
+        // Create an instance of the ConnectDB class
+        $db = new ConnectDB();
+
+        // Get all recipes from the "fp_recipes" table
+        $recipes = $db->getAll('fp_recipes');
+
+        // Pass the recipes data to the view
+        $view = new View("backoffice/recipes", "back");
+        $view->assign('recipes', $recipes);
     }
 }

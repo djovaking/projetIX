@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Backoiffce</title>
+    <title>Backoffice</title>
     <meta name="description" content="mon super site en MVC from scratch">
 </head>
 
