@@ -5,6 +5,7 @@ namespace App\controllers;
 use App\core\View;
 use App\core\SessionManager;
 use App\core\ConnectDB;
+use App\models\User;
 
 final class Backoffice
 {
@@ -24,6 +25,7 @@ final class Backoffice
     }
     public function manageUsers()
     {
+
         $sessionManager = SessionManager::getInstance();
         $roleID = $sessionManager->getSessionData('role_id');
 
@@ -46,6 +48,54 @@ final class Backoffice
     }
     public function editUser()
     {
-        $view = new View("backoffice/editUser", 'back');
+        // Extract the user ID from the URI
+        $userId = $_GET['userId'];
+
+
+        // Check if the user ID is provided
+        if (isset($userId)) {
+            // Create a new View instance
+            $view = new View("backoffice/editUser", 'back');
+        } else {
+            // User ID not provided, handle the error or redirect to a different page
+            die("User ID not provided");
+        }
+    }
+    public function updateUser()
+    {
+
+        foreach ($_POST as $key => $value) {
+
+            echo $key;
+            echo "  ";
+            echo $value;
+            echo "<br>";
+        }
+
+        // Extract the user ID from the form data
+        $userId = $_POST['userId'];
+
+        // Check if the user ID is provided
+        if (isset($userId)) {
+            // Create a new User object
+            $user = new User();
+
+            // Set the user object's properties with form data
+            $user->setId($userId);
+            $user->setFirstname($_POST['firstame']);
+            $user->setLastname($_POST['lastname']);
+            $user->setEmail($_POST['email']);
+            $user->setRole($_POST['role']);
+
+            // Call the save() method to update the user object in the database
+            $user->update();
+
+            // Redirect to a success page or display a success message
+            header("Location: users");
+            exit;
+        } else {
+            // User ID not provided, handle the error or redirect to a different page
+            die("User ID not provided");
+        }
     }
 }

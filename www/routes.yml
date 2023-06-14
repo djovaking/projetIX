@@ -33,3 +33,7 @@ admin/users:
 admin/edituser:
   controller: Backoffice
   action: editUser
+
+admin/updateuser:
+  controller: Backoffice
+  action: updateUser

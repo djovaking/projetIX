@@ -66,6 +66,34 @@ abstract class ORM
         }
         $queryPrepared->execute($columns);
     }
+    public function update(): void
+    {
+        if ($this->getId() === -1) {
+            throw new \Exception("Cannot update object without an ID");
+        }
+
+        $columns = get_object_vars($this);
+        $columnsToDelete = get_class_vars(get_class());
+        $columns = array_diff_key($columns, $columnsToDelete);
+        unset($columns["id"]);
+
+        $sqlUpdate = [];
+        $queryParameters = [];
+
+        foreach ($columns as $key => $value) {
+            if ($value !== null) {
+                $sqlUpdate[] = $key . "=:" . $key;
+                $queryParameters[$key] = $value;
+            }
+        }
+
+        $queryPrepared = $this->pdo->prepare("UPDATE " . $this->table .
+            " SET " . implode(",", $sqlUpdate) .
+            " WHERE id=" . $this->getId());
+
+        $queryPrepared->execute($queryParameters);
+    }
+
     public static function getByEmail($email)
     {
         $connectDb = new ConnectDB();

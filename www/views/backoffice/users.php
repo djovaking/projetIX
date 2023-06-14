@@ -15,8 +15,9 @@
         <?php foreach ($users as $user) : ?>
             <tr>
                 <td>
-                    <a href="edituser.php?userId=<?php echo $user['id']; ?>">Edit</a>
+                    <a href="edituser?userId=<?php echo $user['id']; ?>&firstName=<?php echo $user['firstname']; ?>&lastName=<?php echo $user['lastname']; ?>&status=<?php echo $user['status']; ?>&roleId=<?php echo $user['role_id']; ?>&email=<?php echo $user['email']; ?>">Edit</a>
                 </td>
+
                 <?php foreach ($user as $column => $value) : ?>
                     <?php if ($column !== 'pwd' && $column !== 'id' && $column !== 'date_inserted' && $column !== 'date_updated') : ?>
                         <td class="editable" data-field="<?php echo $column; ?>">

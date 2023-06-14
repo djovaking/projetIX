@@ -157,10 +157,11 @@ class User extends ORM
         $this->status = $status;
     }
     //role
-    public function getRoleId()
+    public function getRoleId(): int
     {
         return $this->role_id;
     }
+
     public function setRole(int $role_id): void
     {
         $this->role_id = $role_id;
