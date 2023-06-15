@@ -122,7 +122,6 @@ CREATE TABLE IF NOT EXISTS public.fp_recipes
     preparation text,
     created_at time with time zone NOT NULL,
     updated_at time with time zone NOT NULL,
-    fp_pages_id serial NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -196,14 +195,6 @@ ALTER TABLE IF EXISTS public.fp_comments
 ALTER TABLE IF EXISTS public.fp_medias
     ADD FOREIGN KEY (fp_recipes_id)
     REFERENCES public.fp_recipes (id) MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION
-    NOT VALID;
-
-
-ALTER TABLE IF EXISTS public.fp_recipes
-    ADD FOREIGN KEY (fp_pages_id)
-    REFERENCES public.fp_pages (id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
