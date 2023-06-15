@@ -5,7 +5,7 @@ namespace App\controllers;
 use App\core\View;
 use App\Forms\Register;
 use App\Forms\Login;
-use App\models\User;
+use App\models\Users;
 use App\core\SessionManager;
 
 final class Security
@@ -17,16 +17,16 @@ final class Security
             $email = $_POST['email'];
             $password = $_POST['password'];
 
-            $user = User::getByEmail($email);
+            $user = Users::getByEmail($email);
 
-            if ($user && password_verify($password, $user->getPwd())) {
+            if ($user && password_verify($password, $user->getpassword	())) {
                 // Authentication successful
                 echo "Connexion réussie";
                 // Stocker l'ID de l'utilisateur dans la session
                 $sessionManager = SessionManager::getInstance();
                 $sessionManager->setSessionData('user_id', $user->getId());
                 $sessionManager->setSessionData('user_name', $user->getFirstname());
-                $sessionManager->setSessionData('role_id', $user->getRoleId());
+                $sessionManager->setSessionData('user_role', $user->getRoleId());
 
                 // Rediriger l'utilisateur vers la page d'accueil ou une autre page sécurisée
                 header('Location: /');
@@ -49,13 +49,13 @@ final class Security
         $form = new Register();
         if ($form->isSubmited() && $form->isValid()) {
             // Create a new User object
-            $user = new User();
+            $user = new Users();
 
             // Set the user object's properties with form data
             $user->setFirstName($_POST['firstname']);
             $user->setLastName($_POST['lastname']);
             $user->setEmail($_POST['email']);
-            $user->setPwd($_POST['password']);
+            $user->setpassword	($_POST['password']);
 
             // Call the save() method to save the user object into the database
             $user->save();

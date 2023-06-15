@@ -22,6 +22,7 @@ abstract class ORM
     public static function getTable(): string
     {
         $classExploded = explode("\\", get_called_class());
+        echo DB_PREFIX . strtolower(end($classExploded));
         return DB_PREFIX . strtolower(end($classExploded));
     }
     /**
@@ -75,9 +76,9 @@ abstract class ORM
         $queryPrepared->setFetchMode(\PDO::FETCH_CLASS, get_called_class());
         $user = $queryPrepared->fetch();
 
-        // Retrieve the role_id from the user table
+        // Retrieve the user_role from the user table
         if ($user) {
-            $user->role_id = $user->role_id;
+            $user->user_role = $user->user_role;
         }
 
 

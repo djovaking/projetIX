@@ -29,3 +29,23 @@ admin:
 admin/users:
   controller: Backoffice
   action: manageUsers
+
+admin/reservations:
+  controller: Backoffice
+  action: manageReservations
+
+reservation:
+  controller : "Front"
+  action : "reservation"
+
+admin/reservation/edit/{id}:
+  controller: Backoffice
+  action: editReservation
+
+admin/reservation/update/{id}:
+  controller: Backoffice
+  action: updateReservation
+
+admin/reservation/delete/{id}:
+  controller: Backoffice
+  action: deleteReservation

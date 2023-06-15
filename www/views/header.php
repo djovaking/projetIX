@@ -10,6 +10,7 @@ $sessionManager = SessionManager::getInstance();
         <ul>
             <li><a href="/">Accueil</a></li>
             <li><a href="/contact">Contact</a></li>
+            <li><a href="/reservation">reservation</a></li>
             <?php if ($sessionManager->getValue('role_id') == 1) : ?>
                 <li><a href="/Backoffice">Backoffice</a></li>
             <?php endif; ?>
