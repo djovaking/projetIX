@@ -66,6 +66,34 @@ abstract class ORM
         }
         $queryPrepared->execute($columns);
     }
+    public function update(): void
+    {
+        if ($this->getId() === -1) {
+            throw new \Exception("Cannot update object without an ID");
+        }
+
+        $columns = get_object_vars($this);
+        $columnsToDelete = get_class_vars(get_class());
+        $columns = array_diff_key($columns, $columnsToDelete);
+        unset($columns["id"]);
+
+        $sqlUpdate = [];
+        $queryParameters = [];
+
+        foreach ($columns as $key => $value) {
+            if ($value !== null) {
+                $sqlUpdate[] = $key . "=:" . $key;
+                $queryParameters[$key] = $value;
+            }
+        }
+
+        $queryPrepared = $this->pdo->prepare("UPDATE " . $this->table .
+            " SET " . implode(",", $sqlUpdate) .
+            " WHERE id=" . $this->getId());
+
+        $queryPrepared->execute($queryParameters);
+    }
+
     public static function getByEmail($email)
     {
         $connectDb = new ConnectDB();
@@ -77,10 +105,20 @@ abstract class ORM
 
         // Retrieve the role_id from the user table
         if ($user) {
-            $user->role_id = $user->role_id;
+            $user->user_role = $user->user_role;
         }
 
 
         return $user;
+    }
+    public static function deleteBy($column, $value): void
+    {
+        $connectDb = new ConnectDB();
+        $pdo = $connectDb->getPdo();
+        $table = self::getTable();
+
+        $query = $pdo->prepare("DELETE FROM $table WHERE $column = :value");
+        $query->bindParam(':value', $value);
+        $query->execute();
     }
 }

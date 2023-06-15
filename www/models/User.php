@@ -16,7 +16,7 @@ class User extends ORM
     protected $date_inserted;
     protected $date_updated;
     protected $status = 0;
-    protected $role_id = 0;
+    protected $user_role = 'basic';
 
 
     public function __construct()
@@ -157,12 +157,13 @@ class User extends ORM
         $this->status = $status;
     }
     //role
-    public function getRoleId()
+    public function getUserRole(): string
     {
-        return $this->role_id;
+        return $this->user_role;
     }
-    public function setRole(int $role_id): void
+
+    public function setRole(string $user_role): void
     {
-        $this->role_id = $role_id;
+        $this->user_role = $user_role;
     }
 }

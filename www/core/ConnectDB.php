@@ -33,4 +33,22 @@ final class ConnectDB
         // Return the list of records
         return $records;
     }
+    public function getBy($table, $column, $value)
+    {
+        // Prepare the SQL query to fetch a record from the specified table based on the column value
+        $query = "SELECT * FROM " . $table . " WHERE " . $column . " = :value";
+        $statement = $this->pdo->prepare($query);
+
+        // Bind the parameter
+        $statement->bindParam(':value', $value);
+
+        // Execute the query
+        $statement->execute();
+
+        // Fetch the record as an object
+        $record = $statement->fetch(\PDO::FETCH_OBJ);
+
+        // Return the record
+        return $record;
+    }
 }
