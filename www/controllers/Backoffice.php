@@ -41,8 +41,11 @@ final class Backoffice
         // Get all recipes from the "fp_recipes" table
         $recipes = $db->getAll('fp_recipes');
 
-        // Pass the recipes data to the view
-        $view = new View("backoffice/recipes", "back");
-        $view->assign('recipes', $recipes);
+        // Pass the recipes data to the views
+        $viewBackOffice = new View("backoffice/recipes", "back");
+        $viewBackOffice->assign('recipes', $recipes);
+
+        // $viewClientSide = new View("recipe", "front");
+        // $viewClientSide->assign('recipes', $recipes);
     }
 }

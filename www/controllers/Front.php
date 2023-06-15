@@ -2,6 +2,7 @@
 
 namespace App\controllers;
 
+use App\core\ConnectDB;
 use App\core\View;
 use App\core\SessionManager;
 
@@ -25,6 +26,19 @@ final class Front
         $view->assign("header", "header.php");
     }
 
+    public function displayRecipes()
+    {
+        // Create an instance of the ConnectDB class
+        $db = new ConnectDB();
+
+        // Get all recipes from the "fp_recipes" table
+        $recipes = $db->getAll('fp_recipes');
+
+        // Pass the recipes data to the views
+
+        $viewClientSide = new View("recipe", "front");
+        $viewClientSide->assign('recipes', $recipes);
+    }
 
     public function contact()
     {

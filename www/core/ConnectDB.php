@@ -18,6 +18,7 @@ final class ConnectDB
     {
         return $this->pdo;
     }
+
     public function getAll($table)
     {
         // Prepare the SQL query to fetch all records from the specified table

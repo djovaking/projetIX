@@ -31,5 +31,9 @@ admin/users:
   action: manageUsers
 
 admin/recipes:
-  controller: Backoffice
+  controller: Backoffice  
   action: manageRecipes
+
+recipes:
+  controller: Front
+  action: displayRecipes
