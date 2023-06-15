@@ -4,7 +4,6 @@ use App\core\SessionManager;
 
 $sessionManager = SessionManager::getInstance();
 
-var_dump($sessionManager->getSessionData('user'));
 
 ?>
 
