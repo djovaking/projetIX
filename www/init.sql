@@ -5,6 +5,8 @@ BEGIN;
 
 DROP TABLE IF EXISTS public.fp_users CASCADE;
 
+DROP TABLE IF EXISTS public.fp_restaurants CASCADE;
+
 
 CREATE TABLE IF NOT EXISTS public.fp_users
 (
@@ -46,7 +48,6 @@ CREATE TABLE IF NOT EXISTS public.fp_pages
 (
     id serial NOT NULL,
     fp_users_id serial NOT NULL,
-    fp_restaurants_id serial NOT NULL,
     name character varying(45),
     slug character varying(150) NOT NULL,
     active boolean NOT NULL,
@@ -78,37 +79,11 @@ CREATE TABLE IF NOT EXISTS public.fp_comments
     date_created time with time zone NOT NULL,
     date_updated time with time zone,
     fp_users_id serial NOT NULL,
-    fp_restaurants_id serial NOT NULL,
     fp_recipes_id serial NOT NULL,
     PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS public.fp_restaurants CASCADE;
 
-CREATE TABLE IF NOT EXISTS public.fp_restaurants
-(
-    id serial NOT NULL,
-    name character varying(45) NOT NULL,
-    address character varying(64),
-    phone character varying(15),
-    schedule text,
-    rating numeric,
-    created_at timestamp with time zone NOT NULL,
-    updated_at time with time zone NOT NULL,
-    link_instagram character varying(2083),
-    link_facebook character varying(2083),
-    link_twitter character varying(2083),
-    link_youtube character varying(2083),
-    link_snapchat character varying(2083),
-    link_tiktok character varying(2083),
-    PRIMARY KEY (id),
-    CONSTRAINT fp_restaurants_link_instagram UNIQUE (link_instagram),
-    CONSTRAINT fp_restaurants_link_facebook UNIQUE (link_facebook),
-    CONSTRAINT fp_restaurants_link_twitter UNIQUE (link_twitter),
-    CONSTRAINT fp_restaurants_link_youtube UNIQUE (link_youtube),
-    CONSTRAINT fp_restaurants_link_snapchat UNIQUE (link_snapchat),
-    CONSTRAINT fp_restaurants_link_tiktok UNIQUE (link_tiktok)
-);
 
 DROP TABLE IF EXISTS public.fp_ingredients CASCADE;
 
@@ -131,7 +106,6 @@ CREATE TABLE IF NOT EXISTS public.fp_medias
     created_at time with time zone NOT NULL,
     updated_at time with time zone NOT NULL,
     identifier character varying(36) NOT NULL,
-    fp_restaurants_id serial NOT NULL,
     fp_recipes_id serial NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT fp_medias_identifier UNIQUE (identifier)
@@ -202,13 +176,6 @@ ALTER TABLE IF EXISTS public.fp_pages
     NOT VALID;
 
 
-ALTER TABLE IF EXISTS public.fp_pages
-    ADD FOREIGN KEY (fp_restaurants_id)
-    REFERENCES public.fp_restaurants (id) MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION
-    NOT VALID;
-
 
 ALTER TABLE IF EXISTS public.fp_comments
     ADD CONSTRAINT fp_users_id FOREIGN KEY (fp_users_id)
@@ -219,24 +186,8 @@ ALTER TABLE IF EXISTS public.fp_comments
 
 
 ALTER TABLE IF EXISTS public.fp_comments
-    ADD CONSTRAINT fp_restaurants_id FOREIGN KEY (fp_restaurants_id)
-    REFERENCES public.fp_restaurants (id) MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION
-    NOT VALID;
-
-
-ALTER TABLE IF EXISTS public.fp_comments
     ADD CONSTRAINT fp_recipes_id FOREIGN KEY (fp_recipes_id)
     REFERENCES public.fp_recipes (id) MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION
-    NOT VALID;
-
-
-ALTER TABLE IF EXISTS public.fp_medias
-    ADD FOREIGN KEY (fp_restaurants_id)
-    REFERENCES public.fp_restaurants (id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
