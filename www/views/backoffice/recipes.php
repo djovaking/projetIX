@@ -11,6 +11,11 @@
     <tbody>
         <?php foreach ($recipes as $recipe) : ?>
             <tr>
+                <td>
+                    <!-- <a href="/admin/recipe/delete/<?php // echo $recipe['id']; 
+                                                        ?>">Delete</a> -->
+                    <a href="deleteRecipe?recipeId=<?php echo ($recipe["id"]); ?>">Delete</a>
+                </td>
                 <?php foreach ($recipe as $value) : ?>
                     <td><?php echo $value; ?></td>
                 <?php endforeach; ?>

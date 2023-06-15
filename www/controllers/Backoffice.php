@@ -45,18 +45,16 @@ final class Backoffice
         // Pass the recipes data to the views
         $viewBackOffice = new View("backoffice/recipes", "back");
         $viewBackOffice->assign('recipes', $recipes);
-
-        // $viewClientSide = new View("recipe", "front");
-        // $viewClientSide->assign('recipes', $recipes);
     }
 
-    public function deleteRecipe()
+
+    public function deleteRecipes()
     {
         $recipeId = $_POST['recipeId'];
         Recipe::deleteBy('id', $recipeId);
 
         // Redirect 
-        header("Location: users");
+        header("Location: recipes");
         exit;
     }
 }
