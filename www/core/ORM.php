@@ -105,10 +105,20 @@ abstract class ORM
 
         // Retrieve the role_id from the user table
         if ($user) {
-            $user->role_id = $user->role_id;
+            $user->user_role = $user->user_role;
         }
 
 
         return $user;
+    }
+    public static function deleteBy($column, $value): void
+    {
+        $connectDb = new ConnectDB();
+        $pdo = $connectDb->getPdo();
+        $table = self::getTable();
+
+        $query = $pdo->prepare("DELETE FROM $table WHERE $column = :value");
+        $query->bindParam(':value', $value);
+        $query->execute();
     }
 }

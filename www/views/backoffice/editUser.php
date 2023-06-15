@@ -18,9 +18,13 @@
     <div>
         <label for="role">Role:</label>
         <select name="role">
-            <option value="1" <?php if ($_GET['roleId'] === '1') echo 'selected'; ?>>Admin</option>
-            <option value="0" <?php if ($_GET['roleId'] === '0') echo 'selected'; ?>>User</option>
+            <option value="admin" <?php if ($_GET['userRole'] === 'admin') echo 'selected'; ?>>Admin</option>
+            <option value="basic" <?php if ($_GET['userRole'] === 'basic') echo 'selected'; ?>>User</option>
         </select>
     </div>
     <button type="submit">Update</button>
+</form>
+<form method="POST" action="deleteuser">
+    <input type="hidden" name="userId" value="<?php echo $_GET['userId']; ?>">
+    <button type="submit" onclick="return confirm('Are you sure you want to delete this user?')">Supprimer le user</button>
 </form>

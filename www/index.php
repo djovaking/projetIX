@@ -2,7 +2,11 @@
 
 namespace App;
 
+use App\core\SessionManager;
+
 require "conf.inc.php";
+
+
 
 spl_autoload_register(function ($class) {
     //die($class); //  models/User
@@ -15,6 +19,7 @@ spl_autoload_register(function ($class) {
 
 
 $base_uri = strtolower(trim($_SERVER["REQUEST_URI"], "/"));
+$base_uri = empty($base_uri) ? "default" : $base_uri;
 
 $uri = strstr($base_uri, "?", true); // Get the part of the string before the "?" character
 $uri = $uri !== false ? $uri : $base_uri; // If "?" character is not found, use the original URI
@@ -27,7 +32,9 @@ $routes  = yaml_parse_file("routes.yml");
 
 //Si l'uri n'existe pas dans $routes die page 404
 if (empty($routes[$uri])) {
-    die("Page 404 : Not found");
+    var_dump($routes);
+    echo ($base_uri);
+    //die("Page 404 : Not found");
 }
 //Sinon si l'uri ne possède pas de controller ni d'action die erreur fichier routes.yml
 if (empty($routes[$uri]["controller"]) || empty($routes[$uri]["action"])) {
@@ -55,6 +62,27 @@ $controller = new ($namespaceController . $c)(); //new Front();
 if (!method_exists($controller, $a)) {
     die("La méthode " . $a . " n'existe pas");
 }
+echo ("a");
+// Check if authentication is required and if the user is logged in
+if (isset($routes[$uri]["auth"]) && $routes[$uri]["auth"]) {
+    echo ("b");
+    $sessionManager = SessionManager::getInstance();
+    if (!$sessionManager->isLoggedIn()) {
+        //User is not logged in, redirect to the login page or handle as needed
+        header('Location: /login');
+        exit();
+    }
 
+    // Check if the user has the required role
+    $requiredRoles = $routes[$uri]["role"] ?? [""];
+    $userRole = $sessionManager->getValue('user_role');
+    if (!in_array($userRole, $requiredRoles)) {
+        echo ('c');
+        echo ($userRole);
+        // User does not have the required role, redirect or handle as needed
+        //header('Location: /');
+        //exit();
+    }
+}
 //Front->contact();
 $controller->$a();

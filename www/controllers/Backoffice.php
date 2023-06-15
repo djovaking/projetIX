@@ -13,26 +13,14 @@ final class Backoffice
     {
         // 
         $sessionManager = SessionManager::getInstance();
-        $roleID = $sessionManager->getSessionData('role_id');
 
-        if ($roleID !== 1) {
-            echo "Access denied! You don't have permission to access the Back Office.";
-            return;
-        }
+
 
         $view = new View("backoffice/home", "back");
         //
     }
     public function manageUsers()
     {
-
-        $sessionManager = SessionManager::getInstance();
-        $roleID = $sessionManager->getSessionData('role_id');
-
-        if ($roleID !== 1) {
-            echo "Access denied! You don't have permission to manage users.";
-            return;
-        }
 
         // Create an instance of the ConnectDB class
         $db = new ConnectDB();
@@ -48,18 +36,7 @@ final class Backoffice
     }
     public function editUser()
     {
-        // Extract the user ID from the URI
-        $userId = $_GET['userId'];
-
-
-        // Check if the user ID is provided
-        if (isset($userId)) {
-            // Create a new View instance
-            $view = new View("backoffice/editUser", 'back');
-        } else {
-            // User ID not provided, handle the error or redirect to a different page
-            die("User ID not provided");
-        }
+        $view = new View("backoffice/editUser", 'back');
     }
     public function updateUser()
     {
@@ -97,5 +74,14 @@ final class Backoffice
             // User ID not provided, handle the error or redirect to a different page
             die("User ID not provided");
         }
+    }
+    public function deleteuser()
+    {
+        $userId = $_POST['userId'];
+        User::deleteBy('id', $userId);
+
+        // Redirect 
+        header("Location: users");
+        exit;
     }
 }

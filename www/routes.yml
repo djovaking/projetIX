@@ -25,15 +25,29 @@ deconnexion:
 admin:
   controller: Backoffice
   action: index
+  auth: true
+  role: [admin, editor]
 
 admin/users:
   controller: Backoffice
   action: manageUsers
+  auth: true
+  role: [admin, editor]
 
 admin/edituser:
   controller: Backoffice
   action: editUser
+  auth: true
+  role: [admin, editor]
 
 admin/updateuser:
   controller: Backoffice
   action: updateUser
+  auth: true
+  role: [admin, editor]
+
+admin/deleteuser:
+  controller: Backoffice
+  action: deleteuser
+  auth: true
+  role: [admin, editor]
