@@ -5,7 +5,7 @@ namespace App\models;
 use App\core\ORM;
 use DateTime;
 
-class User extends ORM
+class Recipe extends ORM
 {
 
     protected $id;
@@ -22,8 +22,8 @@ class User extends ORM
     public function __construct()
     {
         parent::__construct();
-        $this->setDateInserted(time());
-        $this->setDateUpdated(time());
+        $this->setCreatedAt(time());
+        $this->setUpdatedAt(time());
     }
 
     public function __toString(): string

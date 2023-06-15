@@ -66,6 +66,18 @@ abstract class ORM
         }
         $queryPrepared->execute($columns);
     }
+
+    public static function deleteBy($column, $value): void
+    {
+        $connectDb = new ConnectDB();
+        $pdo = $connectDb->getPdo();
+        $table = self::getTable();
+
+        $query = $pdo->prepare("DELETE FROM $table WHERE $column = :value");
+        $query->bindParam(':value', $value);
+        $query->execute();
+    }
+
     public static function getByEmail($email)
     {
         $connectDb = new ConnectDB();

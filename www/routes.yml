@@ -34,6 +34,10 @@ admin/recipes:
   controller: Backoffice  
   action: manageRecipes
 
+admin/deleteRecipes:
+controller: Backoffice  
+action: deleteRecipes
+
 recipes:
   controller: Front
   action: displayRecipes

@@ -3,8 +3,9 @@
 namespace App\controllers;
 
 use App\core\View;
-use App\core\SessionManager;
+use App\models\Recipe;
 use App\core\ConnectDB;
+use App\core\SessionManager;
 
 final class Backoffice
 {
@@ -47,5 +48,15 @@ final class Backoffice
 
         // $viewClientSide = new View("recipe", "front");
         // $viewClientSide->assign('recipes', $recipes);
+    }
+
+    public function deleteRecipe()
+    {
+        $recipeId = $_POST['recipeId'];
+        Recipe::deleteBy('id', $recipeId);
+
+        // Redirect 
+        header("Location: users");
+        exit;
     }
 }
