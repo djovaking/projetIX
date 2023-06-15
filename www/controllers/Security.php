@@ -33,7 +33,7 @@ final class Security
                     'exp_date' => time() + 3600 // Replace with the actual expiration date
                 ];
 
-                $privateKey = '555555e$*d=s'; // Replace with your private key
+                $privateKey = '555555e$*d=s';
                 $token = hash_hmac('sha256', json_encode($user_info), $privateKey);
 
                 $sessionManager->setSessionData('user', $user_info);
