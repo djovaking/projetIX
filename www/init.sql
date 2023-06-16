@@ -122,6 +122,10 @@ CREATE TABLE IF NOT EXISTS public.fp_recipes
     preparation text,
     created_at time with time zone NOT NULL,
     updated_at time with time zone NOT NULL,
+    slug character varying(150) NOT NULL,
+    active boolean NOT NULL,
+    identifier character varying(36) NOT NULL,
+    nb_views integer NOT NULL,
     PRIMARY KEY (id)
 );
 
