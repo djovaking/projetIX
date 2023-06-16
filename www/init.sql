@@ -3,12 +3,12 @@
 BEGIN;
 
 
-DROP TABLE IF EXISTS public.fp_users CASCADE;
+DROP TABLE IF EXISTS public.fp_user CASCADE;
 
-DROP TABLE IF EXISTS public.fp_restaurants CASCADE;
+DROP TABLE IF EXISTS public.fp_restaurant CASCADE;
 
 
-CREATE TABLE IF NOT EXISTS public.fp_users
+CREATE TABLE IF NOT EXISTS public.fp_user
 (
     id serial NOT NULL,
     firstname character varying(45) NOT NULL,
@@ -21,15 +21,15 @@ CREATE TABLE IF NOT EXISTS public.fp_users
 	user_role character varying(45) NOT NULL,
     identifier character varying(36) NOT NULL,
     status boolean NOT NULL,
-    fp_settings_id serial NOT NULL,
-    CONSTRAINT fp_users_id PRIMARY KEY (id),
-    CONSTRAINT fp_users_email UNIQUE (email),
-    CONSTRAINT fp_users_identifier UNIQUE (identifier)
+    fp_setting_id serial NOT NULL,
+    CONSTRAINT fp_user_id PRIMARY KEY (id),
+    CONSTRAINT fp_user_email UNIQUE (email),
+    CONSTRAINT fp_user_identifier UNIQUE (identifier)
 );
 
-DROP TABLE IF EXISTS public.fp_reservations CASCADE;
+DROP TABLE IF EXISTS public.fp_reservation CASCADE;
 
-CREATE TABLE IF NOT EXISTS public.fp_reservations
+CREATE TABLE IF NOT EXISTS public.fp_reservation
 (
     id serial NOT NULL,
     date date NOT NULL,
@@ -38,16 +38,16 @@ CREATE TABLE IF NOT EXISTS public.fp_reservations
     firstname character varying(45) NOT NULL,
     lastname character varying(45) NOT NULL,
     phone character varying(15) NOT NULL,
-    fp_users_id serial NOT NULL,
+    fp_user_id serial NOT NULL,
     PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS public.fp_pages CASCADE;
+DROP TABLE IF EXISTS public.fp_page CASCADE;
 
-CREATE TABLE IF NOT EXISTS public.fp_pages
+CREATE TABLE IF NOT EXISTS public.fp_page
 (
     id serial NOT NULL,
-    fp_users_id serial NOT NULL,
+    fp_user_id serial NOT NULL,
     name character varying(45),
     slug character varying(150) NOT NULL,
     active boolean NOT NULL,
@@ -55,48 +55,48 @@ CREATE TABLE IF NOT EXISTS public.fp_pages
     date_updated time with time zone NOT NULL,
     parent_id integer,
     identifier character varying(36) NOT NULL,
-    nb_views integer NOT NULL,
+    nb_view integer NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT fp_pages_slug UNIQUE (slug),
-    CONSTRAINT fp_pages_identifier UNIQUE (identifier)
+    CONSTRAINT fp_page_slug UNIQUE (slug),
+    CONSTRAINT fp_page_identifier UNIQUE (identifier)
 );
 
-DROP TABLE IF EXISTS public.fp_categories CASCADE;
+DROP TABLE IF EXISTS public.fp_categorie CASCADE;
 
-CREATE TABLE IF NOT EXISTS public.fp_categories
+CREATE TABLE IF NOT EXISTS public.fp_categorie
 (
     id serial NOT NULL,
     name character(45) NOT NULL,
     PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS public.fp_comments CASCADE;
+DROP TABLE IF EXISTS public.fp_comment CASCADE;
 
-CREATE TABLE IF NOT EXISTS public.fp_comments
+CREATE TABLE IF NOT EXISTS public.fp_comment
 (
     id serial NOT NULL,
     text text NOT NULL,
     date_created time with time zone NOT NULL,
     date_updated time with time zone,
-    fp_users_id serial NOT NULL,
-    fp_recipes_id serial NOT NULL,
+    fp_user_id serial NOT NULL,
+    fp_recipe_id serial NOT NULL,
     PRIMARY KEY (id)
 );
 
 
 
-DROP TABLE IF EXISTS public.fp_ingredients CASCADE;
+DROP TABLE IF EXISTS public.fp_ingredient CASCADE;
 
-CREATE TABLE IF NOT EXISTS public.fp_ingredients
+CREATE TABLE IF NOT EXISTS public.fp_ingredient
 (
     id serial NOT NULL,
     name character varying(45) NOT NULL,
     PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS public.fp_medias CASCADE;
+DROP TABLE IF EXISTS public.fp_media CASCADE;
 
-CREATE TABLE IF NOT EXISTS public.fp_medias
+CREATE TABLE IF NOT EXISTS public.fp_media
 (
     id serial NOT NULL,
     name character varying(255) NOT NULL,
@@ -106,14 +106,14 @@ CREATE TABLE IF NOT EXISTS public.fp_medias
     created_at time with time zone NOT NULL,
     updated_at time with time zone NOT NULL,
     identifier character varying(36) NOT NULL,
-    fp_recipes_id serial NOT NULL,
+    fp_recipe_id serial NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT fp_medias_identifier UNIQUE (identifier)
+    CONSTRAINT fp_media_identifier UNIQUE (identifier)
 );
 
-DROP TABLE IF EXISTS public.fp_recipes CASCADE;
+DROP TABLE IF EXISTS public.fp_recipe CASCADE;
 
-CREATE TABLE IF NOT EXISTS public.fp_recipes
+CREATE TABLE IF NOT EXISTS public.fp_recipe
 (
     id serial NOT NULL,
     name character varying(64) NOT NULL,
@@ -122,13 +122,16 @@ CREATE TABLE IF NOT EXISTS public.fp_recipes
     preparation text,
     created_at time with time zone NOT NULL,
     updated_at time with time zone NOT NULL,
-    fp_pages_id serial NOT NULL,
+    slug character varying(150) NOT NULL,
+    active boolean NOT NULL,
+    identifier character varying(36) NOT NULL,
+    nb_view integer NOT NULL,
     PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS public.fp_settings CASCADE;
+DROP TABLE IF EXISTS public.fp_setting CASCADE;
 
-CREATE TABLE IF NOT EXISTS public.fp_settings
+CREATE TABLE IF NOT EXISTS public.fp_setting
 (
     id serial NOT NULL,
     color character varying(16) NOT NULL,
@@ -136,106 +139,98 @@ CREATE TABLE IF NOT EXISTS public.fp_settings
     PRIMARY KEY (id)
 );
 
-DROP TABLE IF EXISTS public.fp_recipes_fp_categories CASCADE;
+DROP TABLE IF EXISTS public.fp_recipe_fp_categorie CASCADE;
 
-CREATE TABLE IF NOT EXISTS public.fp_recipes_fp_categories
+CREATE TABLE IF NOT EXISTS public.fp_recipe_fp_categorie
 (
-    fp_recipes_id serial NOT NULL,
-    fp_categories_id serial NOT NULL
+    fp_recipe_id serial NOT NULL,
+    fp_categorie_id serial NOT NULL
 );
 
-DROP TABLE IF EXISTS public.fp_recipes_fp_ingredients CASCADE;
+DROP TABLE IF EXISTS public.fp_recipe_fp_ingredient CASCADE;
 
-CREATE TABLE IF NOT EXISTS public.fp_recipes_fp_ingredients
+CREATE TABLE IF NOT EXISTS public.fp_recipe_fp_ingredient
 (
-    fp_recipes_id serial NOT NULL,
-    fp_ingredients_id serial NOT NULL
+    fp_recipe_id serial NOT NULL,
+    fp_ingredient_id serial NOT NULL
 );
 
-ALTER TABLE IF EXISTS public.fp_users
-    ADD FOREIGN KEY (fp_settings_id)
-    REFERENCES public.fp_settings (id) MATCH SIMPLE
+ALTER TABLE IF EXISTS public.fp_user
+    ADD FOREIGN KEY (fp_setting_id)
+    REFERENCES public.fp_setting (id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
 
 
-ALTER TABLE IF EXISTS public.fp_reservations
-    ADD CONSTRAINT fp_users_id FOREIGN KEY (fp_users_id)
-    REFERENCES public.fp_users (id) MATCH SIMPLE
+ALTER TABLE IF EXISTS public.fp_reservation
+    ADD CONSTRAINT fp_user_id FOREIGN KEY (fp_user_id)
+    REFERENCES public.fp_user (id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
 
 
-ALTER TABLE IF EXISTS public.fp_pages
-    ADD CONSTRAINT fp_users_id FOREIGN KEY (fp_users_id)
-    REFERENCES public.fp_users (id) MATCH SIMPLE
+ALTER TABLE IF EXISTS public.fp_page
+    ADD CONSTRAINT fp_user_id FOREIGN KEY (fp_user_id)
+    REFERENCES public.fp_user (id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
 
 
 
-ALTER TABLE IF EXISTS public.fp_comments
-    ADD CONSTRAINT fp_users_id FOREIGN KEY (fp_users_id)
-    REFERENCES public.fp_users (id) MATCH SIMPLE
+ALTER TABLE IF EXISTS public.fp_comment
+    ADD CONSTRAINT fp_user_id FOREIGN KEY (fp_user_id)
+    REFERENCES public.fp_user (id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
 
 
-ALTER TABLE IF EXISTS public.fp_comments
-    ADD CONSTRAINT fp_recipes_id FOREIGN KEY (fp_recipes_id)
-    REFERENCES public.fp_recipes (id) MATCH SIMPLE
+ALTER TABLE IF EXISTS public.fp_comment
+    ADD CONSTRAINT fp_recipe_id FOREIGN KEY (fp_recipe_id)
+    REFERENCES public.fp_recipe (id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
 
 
-ALTER TABLE IF EXISTS public.fp_medias
-    ADD FOREIGN KEY (fp_recipes_id)
-    REFERENCES public.fp_recipes (id) MATCH SIMPLE
+ALTER TABLE IF EXISTS public.fp_media
+    ADD FOREIGN KEY (fp_recipe_id)
+    REFERENCES public.fp_recipe (id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
 
 
-ALTER TABLE IF EXISTS public.fp_recipes
-    ADD FOREIGN KEY (fp_pages_id)
-    REFERENCES public.fp_pages (id) MATCH SIMPLE
+ALTER TABLE IF EXISTS public.fp_recipe_fp_categorie
+    ADD FOREIGN KEY (fp_recipe_id)
+    REFERENCES public.fp_recipe (id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
 
 
-ALTER TABLE IF EXISTS public.fp_recipes_fp_categories
-    ADD FOREIGN KEY (fp_recipes_id)
-    REFERENCES public.fp_recipes (id) MATCH SIMPLE
+ALTER TABLE IF EXISTS public.fp_recipe_fp_categorie
+    ADD FOREIGN KEY (fp_categorie_id)
+    REFERENCES public.fp_categorie (id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
 
 
-ALTER TABLE IF EXISTS public.fp_recipes_fp_categories
-    ADD FOREIGN KEY (fp_categories_id)
-    REFERENCES public.fp_categories (id) MATCH SIMPLE
+ALTER TABLE IF EXISTS public.fp_recipe_fp_ingredient
+    ADD FOREIGN KEY (fp_recipe_id)
+    REFERENCES public.fp_recipe (id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
 
 
-ALTER TABLE IF EXISTS public.fp_recipes_fp_ingredients
-    ADD FOREIGN KEY (fp_recipes_id)
-    REFERENCES public.fp_recipes (id) MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION
-    NOT VALID;
-
-
-ALTER TABLE IF EXISTS public.fp_recipes_fp_ingredients
-    ADD FOREIGN KEY (fp_ingredients_id)
-    REFERENCES public.fp_ingredients (id) MATCH SIMPLE
+ALTER TABLE IF EXISTS public.fp_recipe_fp_ingredient
+    ADD FOREIGN KEY (fp_ingredient_id)
+    REFERENCES public.fp_ingredient (id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
