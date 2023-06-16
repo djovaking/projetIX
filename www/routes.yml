@@ -34,9 +34,9 @@ admin/recipes:
   controller: Backoffice  
   action: manageRecipes
 
-admin/deleteRecipe?recipeId={id}:
-controller: Backoffice  
-action: deleteRecipes
+admin/deleterecipe:
+  controller: Backoffice  
+  action: deleteRecipe
 
 recipes:
   controller: Front

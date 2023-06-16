@@ -14,8 +14,11 @@ spl_autoload_register(function ($class) {
 });
 
 
-$uri = strtolower(trim($_SERVER["REQUEST_URI"], "/"));
-$uri = empty($uri) ? "default" : $uri;
+$base_uri = strtolower(trim($_SERVER["REQUEST_URI"], "/"));
+$base_uri = empty($base_uri) ? "default" : $base_uri;
+
+$uri = strstr($base_uri, "?", true); // Get the part of the string before the "?" character
+$uri = $uri !== false ? $uri : $base_uri; // If "?" character is not found, use the original URI
 
 
 if (!file_exists("routes.yml")) {

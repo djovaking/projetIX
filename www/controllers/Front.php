@@ -31,13 +31,13 @@ final class Front
         // Create an instance of the ConnectDB class
         $db = new ConnectDB();
 
-        // Get all recipes from the "fp_recipes" table
-        $recipes = $db->getAll('fp_recipes');
+        // Get all recipe from the "fp_recipe" table
+        $recipes = $db->getAll('fp_recipe');
 
-        // Pass the recipes data to the views
+        // Pass the recipe data to the views
 
-        $viewClientSide = new View("recipe", "front");
-        $viewClientSide->assign('recipes', $recipes);
+        $view = new View("recipe", "front");
+        $view->assign('recipe', $recipes);
     }
 
     public function contact()

@@ -39,18 +39,18 @@ final class Backoffice
         // Create an instance of the ConnectDB class
         $db = new ConnectDB();
 
-        // Get all recipes from the "fp_recipes" table
-        $recipes = $db->getAll('fp_recipes');
+        // Get all recipes from the "fp_recipe" table
+        $recipes = $db->getAll('fp_recipe');
 
-        // Pass the recipes data to the views
-        $viewBackOffice = new View("backoffice/recipes", "back");
-        $viewBackOffice->assign('recipes', $recipes);
+        // Pass the recipe data to the views
+        $view = new View("backoffice/recipes", "back");
+        $view->assign('recipes', $recipes);
     }
 
 
-    public function deleteRecipes()
+    public function deleteRecipe()
     {
-        $recipeId = $_POST['recipeId'];
+        $recipeId = $_GET['recipeId'];
         Recipe::deleteBy('id', $recipeId);
 
         // Redirect 

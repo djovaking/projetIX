@@ -15,7 +15,6 @@ class Recipe extends ORM
     protected $preparation;
     protected $created_at;
     protected $updated_at;
-    protected $fp_pages_id;
 
 
 
@@ -44,19 +43,6 @@ class Recipe extends ORM
         $this->id = $id;
     }
 
-
-    /**
-     * @return int
-     */
-    public function getFpPagesId(): int
-    {
-        return $this->fp_pages_id;
-    }
-
-    public function setFpPagesId(int $fp_pages_id): void
-    {
-        $this->fp_pages_id = $fp_pages_id;
-    }
 
     /**
      * @return string
