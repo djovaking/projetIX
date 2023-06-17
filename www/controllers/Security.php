@@ -2,11 +2,15 @@
 
 namespace App\controllers;
 
+require_once __DIR__ . '/../conf.inc.php';
+require_once __DIR__ . '/../core/JWT.php';
+
 use App\core\View;
 use App\Forms\Register;
 use App\Forms\Login;
 use App\models\User;
 use App\core\SessionManager;
+use JWT;
 
 final class Security
 {
@@ -19,31 +23,52 @@ final class Security
 
             $user = User::getByEmail($email);
 
-            if ($user && password_verify($password, $user->getPwd())) {
+            if ($user && password_verify($password, $user->getPassword())) {
                 // Authentication successful
-                echo "Connexion réussie";
+                echo "Connexion réussie <br>";
                 $sessionManager = SessionManager::getInstance();
 
-                $user_info = [
-                    'id' => $user->getId(),
-                    'name' => $user->getFirstname(),
+                $payload = [
+                    'user_id' => $user->getId(),
+                    'firstname' => $user->getFirstname(),
                     'lastname' => $user->getLastname(),
                     'email' => $user->getEmail(),
+                    'pseudo' => $user->getPseudo(),
                     'user_role' => $user->getUserRole(),
-                    'exp_date' => time() + 3600 // Replace with the actual expiration date
+                    'identifier' => $user->getIdentifier(),
+                    'status' => $user->getStatus(),
+                    'fp_settings_id' => $user->getSettingId()
                 ];
 
-                $privateKey = '555555e$*d=s';
-                $token = hash_hmac('sha256', json_encode($user_info), $privateKey);
+                // On crée le header
+                $header = [
+                    'typ' => 'JWT',
+                    'alg' => 'HS256'
+                ];
 
-                $sessionManager->setSessionData('user', $user_info);
-                $sessionManager->setSessionData('token', $token);
+                // On crée le contenu (payload)
+                $payload_test= [
+                    'user_id' => 1,
+                    'firstname' => 'Toto',
+                    'lastname' => 'Test',
+                    'email' => 'toto@test.fr',
+                    'pseudo' => 'Toto1234',
+                    'user_role' => 'admin',
+                    'identifier' => '4df1617e-9366-48fc-98ff-51647c2e8d46',
+                    'status' => 't',
+                    'fp_settings_id' => 1
+                ];
 
+                $jwt = new JWT();
 
+                $token = $jwt->generate($header, $payload, SECRET, 60);
+
+                // Ajouter l'en-tête Authorization contenant le token
+                header("Authorization: Bearer $token");
 
                 // Rediriger l'utilisateur vers la page d'accueil ou une autre page sécurisée
-                //header('Location: /');
-                //exit;
+                // header('Location: /');
+                // exit;
             } else {
                 // Authentication failed
                 echo "Connexion echouée";
@@ -68,7 +93,7 @@ final class Security
             $user->setFirstName($_POST['firstname']);
             $user->setLastName($_POST['lastname']);
             $user->setEmail($_POST['email']);
-            $user->setPwd($_POST['password']);
+            $user->setPassword($_POST['password']);
             // check if email is already registered in database
             $email = $_POST['email'];
 

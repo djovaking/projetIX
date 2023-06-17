@@ -53,14 +53,14 @@ class Register extends Validator {
                     "type"=>"password",
                     "placeholder"=>"Votre mot de passe",
                     "required"=>true,
-                    "id"=>"input-pwd",
+                    "id"=>"input-password",
                     "class"=>"input-text"
                 ],
                 "password-confirm"=>[
                     "type"=>"password",
                     "placeholder"=>"Confirmation",
                     "required"=>true,
-                    "id"=>"input-pwd-confirm",
+                    "id"=>"input-password-confirm",
                     "class"=>"input-text",
                     "confirm"=>"password"
                 ]

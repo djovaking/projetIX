@@ -5,7 +5,7 @@
         <tr>
             <th></th>
             <?php foreach (array_keys($users[0]) as $column) : ?>
-                <?php if ($column !== 'pwd' && $column !== 'id' && $column !== 'date_inserted' && $column !== 'date_updated') : ?>
+                <?php if ($column !== 'password' && $column !== 'id' && $column !== 'date_inserted' && $column !== 'date_updated') : ?>
                     <th><?php echo $column; ?></th>
                 <?php endif; ?>
             <?php endforeach; ?>
@@ -19,7 +19,7 @@
                 </td>
 
                 <?php foreach ($user as $column => $value) : ?>
-                    <?php if ($column !== 'pwd' && $column !== 'id' && $column !== 'date_inserted' && $column !== 'date_updated') : ?>
+                    <?php if ($column !== 'password' && $column !== 'id' && $column !== 'date_inserted' && $column !== 'date_updated') : ?>
                         <td class="editable" data-field="<?php echo $column; ?>">
                             <div> <?php echo $value; ?></div>
                         </td>
