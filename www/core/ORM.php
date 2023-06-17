@@ -11,7 +11,7 @@ abstract class ORM
     public function __construct()
     {
         $this->table = self::getTable();
-        $connectDb = new ConnectDB();
+        $connectDb = ConnectDB::getInstance();
         $this->pdo = $connectDb->getPdo();
     }
 
@@ -34,7 +34,7 @@ abstract class ORM
 
     public static function getOneBy($column, $value)
     {
-        $connectDb = new ConnectDB();
+        $connectDb = ConnectDB::getInstance();
         $queryPrepared = $connectDb->getPdo()->prepare("SELECT * FROM " . self::getTable() .
             " WHERE " . $column . "=:" . $column);
         $queryPrepared->execute([$column => $value]);
@@ -96,7 +96,7 @@ abstract class ORM
 
     public static function getByEmail($email)
     {
-        $connectDb = new ConnectDB();
+        $connectDb = ConnectDB::getInstance();
         $queryPrepared = $connectDb->getPdo()->prepare("SELECT * FROM " . self::getTable() .
             " WHERE email=:email");
         $queryPrepared->execute(['email' => $email]);
@@ -113,7 +113,7 @@ abstract class ORM
     }
     public static function deleteBy($column, $value): void
     {
-        $connectDb = new ConnectDB();
+        $connectDb = ConnectDB::getInstance();
         $pdo = $connectDb->getPdo();
         $table = self::getTable();
 

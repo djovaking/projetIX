@@ -23,7 +23,7 @@ final class Backoffice
     {
 
         // Create an instance of the ConnectDB class
-        $db = new ConnectDB();
+        $db = ConnectDB::getInstance();
 
         // Validate the user data and perform necessary sanitization
 
