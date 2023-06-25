@@ -87,6 +87,10 @@ final class Security
         $view->assign('formErrors', $form->listOfErrors);
     }
 
+    public function register2()
+    {
+        $view = new View("security/register2", "account");
+    }
 
 
     public function logout()
