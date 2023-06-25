@@ -52,12 +52,19 @@ class SessionManager
     public function isLoggedIn(): bool
     {
         // Vérifier si l'utilisateur est connecté en vérifiant la présence de la clé 'user_id' dans les variables de session
-        return isset($_SESSION['user_id']);
+        return isset($_SESSION['user']);
     }
     public function getValue(string $key, $default = null)
     {
         // Récupérer la valeur de la variable de session correspondant à la clé fournie
         // Si la clé n'existe pas, retourner la valeur par défaut spécifiée
         return $this->getSessionData($key, $default);
+    }
+    public function logout(): void
+    {
+        // Destroy the session and remove all session data
+        session_destroy();
+        $_SESSION = [];
+        unset($_SESSION);
     }
 }

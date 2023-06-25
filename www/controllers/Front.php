@@ -12,8 +12,8 @@ final class Front
     public function home()
     {
         $sessionManager = SessionManager::getInstance();
-        if (null !== $sessionManager->getValue('user_id')) {
-            $userName = $sessionManager->getValue('user_name');
+        if (null !== $sessionManager->getValue('user')) {
+            $userName = $sessionManager->getValue('user')['name'];
             $bienvenue = "<h2> Bonjour $userName</h2>";
         } else {
             $bienvenue = "Souhaitez vous vous connectez?";
