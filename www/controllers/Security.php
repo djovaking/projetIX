@@ -87,9 +87,38 @@ final class Security
         $view->assign('formErrors', $form->listOfErrors);
     }
 
+    // -----test email confirmation------
     public function register2()
     {
         $view = new View("security/register2", "account");
+    }
+
+    public function sendConfirmationEmail()
+    {
+        $prenom = $_POST["prenom"];
+        $email = $_POST["email"];
+        // $password = $_POST["password"];
+        // echo ($email);
+
+        $to = $email;
+        $subject = "Confirmation d'inscription";
+        $message = "Bonjour $prenom,<br><br>
+                    Votre inscription a été réussie.<br><br>
+                    Merci de votre inscription !";
+
+        $headers = "De: FoodPress@no-reply.com\r\n";
+        $headers .= "Content-type: text/html\r\n";
+
+        if (mail($to, $subject, $message)) {
+            echo "Inscription réussie ! Un email de confirmation a été envoyé à $email.";
+        } else {
+            echo "Erreur lors de l'envoi de l'email de confirmation.";
+            echo $to;
+            echo " ";
+            echo $prenom;
+        }
+
+        $view = new View("security/register2-confirmation", "account");
     }
 
 

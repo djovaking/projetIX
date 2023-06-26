@@ -1,13 +1,9 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <title>--test inscription email--</title>
-</head>
-
 <body>
     <h2>S'inscrire2</h2>
-    <form action="traitement.php" method="POST">
+    <form action="email-confirmation" method="POST">
         <label for="nom">Nom :</label>
         <input type="text" id="nom" name="nom" required><br><br>
 

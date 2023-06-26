@@ -18,6 +18,10 @@ s-inscrire2:
   controller: "Security"
   action: "register2"
 
+email-confirmation:
+  controller: "Security"
+  action: "sendConfirmationEmail"
+
 login:
   controller: "Security"
   action: "login"
