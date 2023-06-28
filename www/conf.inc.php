@@ -7,3 +7,5 @@ define("DB_PORT", "5432");
 define("DB_USER", "esgi");
 define("DB_PWD", "Test1234");
 define("DB_PREFIX", "fp_");
+
+const SECRET = 'OhLa83lleBroue11e!';

@@ -12,17 +12,19 @@ class User extends ORM
     protected $firstname;
     protected $lastname;
     protected $email;
-    protected $pwd;
-    protected $date_inserted;
+    protected $pseudo;
+    protected $password;
+    protected $date_created;
     protected $date_updated;
     protected $status = 0;
     protected $user_role = 'basic';
-
+    protected $identifier = "12345";
+    protected $fp_setting_id = 1;
 
     public function __construct()
     {
         parent::__construct();
-        $this->setDateInserted(time());
+        $this->setDateCreated(time());
         $this->setDateUpdated(time());
     }
 
@@ -94,35 +96,51 @@ class User extends ORM
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPwd(): string
+    public function getPseudo(): ?string
     {
-        return $this->pwd;
+        return $this->pseudo;
     }
 
     /**
-     * @param string $pwd
+     * @param string $pseudo
      */
-    public function setPwd(string $pwd): void
+    public function setPseudo(string $pseudo): void
     {
-        $this->pwd = password_hash($pwd, PASSWORD_DEFAULT);
+        $this->pseudo = strtolower(trim($pseudo));
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param string $password
+     */
+    public function setPassword(string $password): void
+    {
+        $this->password = password_hash($password, PASSWORD_DEFAULT);
     }
 
     /**
      * @return Integer
      */
-    public function getDateInserted(): int
+    public function getDateCreated(): int
     {
-        return $this->date_inserted;
+        return $this->date_created;
     }
 
     /**
-     * @param Integer $date_inserted
+     * @param Integer $date_created
      */
-    public function setDateInserted(Int $date_inserted): void
+    public function setDateCreated(Int $date_created): void
     {
-        $this->date_inserted = date("Y-m-d h:i:s", $date_inserted);
+        $this->date_created = date("Y-m-d h:i:s", $date_created);
     }
 
     /**
@@ -165,5 +183,28 @@ class User extends ORM
     public function setRole(string $user_role): void
     {
         $this->user_role = $user_role;
+    }
+
+    public function getIdentifier(): string
+    {
+        return $this->identifier;
+    }
+
+    public function setIdentifier(string $identifier): void
+    {
+        $this->identifier = $identifier;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSettingId(): int
+    {
+        return $this->fp_setting_id;
+    }
+
+    public function setSettingId(int $fp_setting_id): void
+    {
+        $this->fp_setting_id = $fp_setting_id;
     }
 }

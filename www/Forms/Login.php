@@ -35,7 +35,7 @@ class Login extends Validator
                     "type" => "password",
                     "placeholder" => "Votre mot de passe",
                     "required" => true,
-                    "id" => "input-pwd",
+                    "id" => "input-password",
                     "class" => "input-text"
                 ]
             ]
