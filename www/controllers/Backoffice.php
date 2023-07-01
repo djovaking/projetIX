@@ -78,7 +78,21 @@ final class Backoffice
     public function deleteuser()
     {
         $userId = $_POST['userId'];
+
+        User::dropFKConstraint('fp_reservation', 'fp_user_id');
+        User::deleteDatasInTheFKTable('fp_reservation','fp_user_id',$userId);
+
+        User::dropFKConstraint('fp_page', 'fp_user_id');
+        User::deleteDatasInTheFKTable('fp_page','fp_user_id',$userId);
+
+        User::dropFKConstraint('fp_comment', 'fp_user_id');
+        User::deleteDatasInTheFKTable('fp_comment','fp_user_id',$userId);
+
         User::deleteBy('id', $userId);
+
+        User::restoreFKConstraint('fp_reservation','fp_user_id','fp_user_id','fp_user');
+        User::restoreFKConstraint('fp_page','fp_user_id','fp_user_id','fp_user');
+        User::restoreFKConstraint('fp_comment','fp_user_id','fp_user_id','fp_user');
 
         // Redirect 
         header("Location: users");
