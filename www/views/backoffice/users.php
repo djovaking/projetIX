@@ -16,6 +16,10 @@
             <tr>
                 <td>
                     <a href="edituser?userId=<?php echo ($user["id"]); ?>&firstName=<?php echo $user['firstname']; ?>&lastName=<?php echo $user['lastname']; ?>&status=<?php echo $user['status']; ?>&userRole=<?php echo $user['user_role']; ?>&email=<?php echo $user['email']; ?>">Edit</a>
+                    <form method="POST" action="deleteuser">
+                        <input type="hidden" name="userId" value="<?php echo $_GET['userId']; ?>">
+                        <button type="submit" onclick="return confirm('Are you sure you want to delete this user?')">Supprimer le user</button>
+                    </form>
                 </td>
 
                 <?php foreach ($user as $column => $value) : ?>

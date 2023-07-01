@@ -108,7 +108,6 @@ abstract class ORM
             $user->user_role = $user->user_role;
         }
 
-
         return $user;
     }
     public static function deleteBy($column, $value): void

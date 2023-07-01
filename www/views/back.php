@@ -10,7 +10,6 @@
 <body>
     <?php include 'header_back.php' ?>
 
-
     <main> <?php include $this->view; ?></main>
     <!-- la vue  -->
     <!-- footer -->

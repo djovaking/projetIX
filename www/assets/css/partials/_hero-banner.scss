@@ -1,0 +1,22 @@
+/* styles.scss */
+.hero-banner {
+  background-image: url(../../medias/img/hero\ banner.jpg);
+  text-align: center;
+  min-height: 50vh;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.hero-banner h1 {
+  font-size: 36px;
+  color: $secondary-color;
+  margin-bottom: 20px;
+}
+
+.hero-banner p {
+  font-size: 18px;
+  color: white;
+  margin-bottom: 40px;
+}

@@ -1,0 +1,134 @@
+// Text Alignment
+@mixin text-left {
+  text-align: left;
+}
+
+@mixin text-center {
+  text-align: center;
+}
+
+@mixin text-right {
+  text-align: right;
+}
+
+// Text Decoration
+@mixin text-underline {
+  text-decoration: underline;
+}
+
+@mixin text-no-underline {
+  text-decoration: none;
+}
+
+// Text Transform
+@mixin text-uppercase {
+  text-transform: uppercase;
+}
+
+@mixin text-lowercase {
+  text-transform: lowercase;
+}
+
+@mixin text-capitalize {
+  text-transform: capitalize;
+}
+
+// Display
+@mixin hidden {
+  display: none;
+}
+
+@mixin block {
+  display: block;
+}
+
+@mixin inline {
+  display: inline;
+}
+
+// Visibility
+@mixin invisible {
+  visibility: hidden;
+}
+
+@mixin visible {
+  visibility: visible;
+}
+
+// Margin and Padding
+@mixin m-0 {
+  margin: 0;
+}
+
+@mixin p-0 {
+  padding: 0;
+}
+
+// Font Weight
+@mixin font-normal {
+  font-weight: normal;
+}
+
+@mixin font-bold {
+  font-weight: bold;
+}
+
+// Text Size
+@mixin text-xs {
+  font-size: 0.75rem;
+}
+
+@mixin text-sm {
+  font-size: 0.875rem;
+}
+
+@mixin text-base {
+  font-size: 1rem;
+}
+
+@mixin text-lg {
+  font-size: 1.125rem;
+}
+
+@mixin text-xl {
+  font-size: 1.25rem;
+}
+
+// Text Color
+@mixin text-black {
+  color: #000000;
+}
+
+@mixin text-white {
+  color: #ffffff;
+}
+
+// Background Color
+@mixin bg-gray-200 {
+  background-color: #e2e8f0;
+}
+
+@mixin bg-gray-400 {
+  background-color: #cbd5e0;
+}
+
+// Border
+@mixin border {
+  border: 1px solid #000000;
+}
+
+// Box Shadow
+@mixin shadow {
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+// Flex Container
+@mixin flex {
+  display: flex;
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

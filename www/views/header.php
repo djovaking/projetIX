@@ -7,7 +7,10 @@ $sessionManager = SessionManager::getInstance();
 
 ?>
 
-<header>
+<header class="front-header">
+    <div class="icon-header">
+        logo
+    </div>
     <nav>
         <ul>
             <li><a href="/">Accueil</a></li>
@@ -25,3 +28,7 @@ $sessionManager = SessionManager::getInstance();
         </ul>
     </nav>
 </header>
+<section class="hero-banner">
+    <h1>Bienvenue sur notre site FoodPress!</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+</section>

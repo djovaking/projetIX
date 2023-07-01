@@ -1,0 +1,47 @@
+// Import Google Fonts
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+// Font Family
+$font-family-base: "Raleway", sans-serif;
+
+// Typography styles
+body {
+  font-family: $font-family-base;
+  // Additional body typography styles
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-family-base;
+  // Additional heading typography styles
+}
+
+// ... additional typography styles
+
+h1 {
+  font-size: $font-size-lg;
+  font-weight: bold;
+  // ... additional h1 styles
+}
+
+h2 {
+  font-size: $font-size-base;
+  font-weight: bold;
+  // ... additional h2 styles
+}
+
+p {
+  font-size: $font-size-base;
+  // ... additional paragraph styles
+}
+a {
+  text-decoration: none;
+}
+ul,
+li {
+  list-style-type: none;
+}

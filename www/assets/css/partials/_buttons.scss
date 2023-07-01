@@ -1,0 +1,39 @@
+// _button-solid.scss
+
+$button-solid-bg-color: $secondary-color;
+$button-solid-text-color: #ffffff;
+
+$button-outline-border-color: $secondary-color;
+$button-outline-text-color: white;
+
+.button-solid {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 4px;
+  background-color: $button-solid-bg-color;
+  color: $button-solid-text-color;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: darken($button-solid-bg-color, 10%);
+  }
+}
+
+// _button-outline.scss
+
+.button-outline {
+  display: inline-block;
+  padding: 10px 20px;
+  border: 1px solid $button-outline-border-color;
+  border-radius: 4px;
+  background-color: transparent;
+  color: $button-outline-text-color;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: $button-outline-border-color;
+    color: #ffffff;
+  }
+}
