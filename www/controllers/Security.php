@@ -4,6 +4,7 @@ namespace App\controllers;
 
 require_once __DIR__ . '/../conf.inc.php';
 require_once __DIR__ . '/../core/JWT.php';
+require_once __DIR__ . '/../service/random_function.php';
 
 use App\core\View;
 use App\Forms\Register;
@@ -11,6 +12,8 @@ use App\Forms\Login;
 use App\models\User;
 use App\core\SessionManager;
 use JWT;
+
+use function App\services\generateRandomString;
 
 final class Security
 {
@@ -47,7 +50,7 @@ final class Security
                 ];
 
                 // On crée le contenu (payload)
-                $payload_test= [
+                $payload_test = [
                     'user_id' => 1,
                     'firstname' => 'Toto',
                     'lastname' => 'Test',
@@ -94,6 +97,8 @@ final class Security
             $user->setLastName($_POST['lastname']);
             $user->setEmail($_POST['email']);
             $user->setPassword($_POST['password']);
+            $user->setIdentifier(generateRandomString(18)); //generate a 36 uuid characters in hexadecimal
+
             // check if email is already registered in database
             $email = $_POST['email'];
 
