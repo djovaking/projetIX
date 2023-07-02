@@ -6,6 +6,7 @@ use App\core\View;
 use App\core\SessionManager;
 use App\core\ConnectDB;
 use App\models\User;
+use App\models\Recipe;
 
 final class Backoffice
 {
@@ -82,6 +83,64 @@ final class Backoffice
 
         // Redirect 
         header("Location: users");
+        exit;
+    }
+
+    public function manageRecipes()
+    {
+        // Create an instance of the ConnectDB class
+        $db = ConnectDB::getInstance();
+
+        // Get all recipes from the "fp_recipe" table
+        $recipes = $db->getAll('fp_recipe');
+        // Pass the recipe data to the view
+        $view = new View("backoffice/recipes", "back");
+        $view->assign('recipes', $recipes);
+    }
+
+    public function editRecipe()
+    {
+        $view = new View("backoffice/editRecipe", 'back');
+    }
+
+    public function updateRecipe()
+    {
+        foreach ($_POST as $key => $value) {
+            echo $key;
+            echo "  ";
+            echo $value;
+            echo "<br>";
+        }
+        // Extract the recipe ID from the form data
+        $recipeId = $_POST['recipeId'];
+        // Check if the recipe ID is provided
+        if (isset($recipeId)) {
+            // Create a new Recipe object
+            $recipe = new Recipe();
+            // Set the recipe object's properties with form data
+            $recipe->setId($recipeId);
+            $recipe->setName($_POST['name']);
+            $recipe->setTimePreparation($_POST['time_preparation']);
+            $recipe->setDifficulty($_POST['difficulty']);
+            $recipe->setPreparation($_POST['preparation']);
+            // Call the update() method to update the recipe object in the database
+            $recipe->update();
+            // Redirect to a success page or display a success message
+            header("Location: recipes");
+            // exit;
+        } else {
+            // recipe ID not provided, handle the error or redirect to a different page
+            die("Recipe ID not provided");
+        }
+    }
+
+    public function deleteRecipe()
+    {
+        $recipeId = $_GET['recipeId'];
+        Recipe::deleteBy('id', $recipeId);
+
+        // Redirect 
+        header("Location: recipes");
         exit;
     }
 }

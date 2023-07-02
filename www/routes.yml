@@ -51,3 +51,19 @@ admin/deleteuser:
   action: deleteuser
   auth: true
   role: [admin, editor]
+
+admin/recipes:
+  controller: Backoffice
+  action: manageRecipes
+
+admin/editrecipe:
+  controller: Backoffice
+  action: editRecipe
+
+admin/updaterecipe:
+  controller: Backoffice
+  action: updateRecipe
+
+admin/deleterecipe:
+  controller: Backoffice
+  action: deleteRecipe
