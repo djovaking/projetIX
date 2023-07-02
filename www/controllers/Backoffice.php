@@ -102,7 +102,7 @@ final class Backoffice
     }
 
     public function managePages()
-     {
+    {
         // Create an instance of the ConnectDB class
         $db = ConnectDB::getInstance();
 
@@ -112,18 +112,6 @@ final class Backoffice
         $view = new View("backoffice/pages", "back");
         $view->assign('pages', $pages);
     }
-  
-    public function manageRecipes()
-    {
-        // Create an instance of the ConnectDB class
-        $db = ConnectDB::getInstance();
-
-        // Get all recipes from the "fp_recipe" table
-        $recipes = $db->getAll('fp_recipe');
-        // Pass the page data to the view
-        $view = new View("backoffice/recipes", "back");
-        $view->assign('recipes', $recipes);
-    }
 
     public function editPage()
     {
@@ -131,19 +119,6 @@ final class Backoffice
     }
 
     public function updatePage()
-        // Get all recipes from the "fp_recipe" table
-        $recipes = $db->getAll('fp_recipe');
-        // Pass the recipe data to the view
-        $view = new View("backoffice/recipes", "back");
-        $view->assign('recipes', $recipes);
-    }
-
-    public function editRecipe()
-    {
-        $view = new View("backoffice/editRecipe", 'back');
-    }
-
-    public function updateRecipe()
     {
         foreach ($_POST as $key => $value) {
             echo $key;
@@ -151,7 +126,6 @@ final class Backoffice
             echo $value;
             echo "<br>";
         }
-      
         // Extract the page ID from the form data
         $pageId = $_POST['pageId'];
         // Check if the page ID is provided
@@ -181,6 +155,34 @@ final class Backoffice
 
         // Redirect 
         header("Location: pages");
+        exit;
+    }
+
+    public function manageRecipes()
+    {
+        // Create an instance of the ConnectDB class
+        $db = ConnectDB::getInstance();
+
+        // Get all recipes from the "fp_recipe" table
+        $recipes = $db->getAll('fp_recipe');
+        // Pass the recipe data to the view
+        $view = new View("backoffice/recipes", "back");
+        $view->assign('recipes', $recipes);
+    }
+
+    public function editRecipe()
+    {
+        $view = new View("backoffice/editRecipe", 'back');
+    }
+
+    public function updateRecipe()
+    {
+        foreach ($_POST as $key => $value) {
+            echo $key;
+            echo "  ";
+            echo $value;
+            echo "<br>";
+        }
         // Extract the recipe ID from the form data
         $recipeId = $_POST['recipeId'];
         // Check if the recipe ID is provided
