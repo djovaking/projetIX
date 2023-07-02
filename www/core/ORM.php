@@ -122,4 +122,35 @@ abstract class ORM
         $query->bindParam(':value', $value);
         $query->execute();
     }
+
+    public static function dropFKConstraint($table, $constraint): void
+    {
+        $connectDb = ConnectDB::getInstance();
+        $pdo = $connectDb->getPdo();
+
+        $query = $pdo->prepare("ALTER TABLE $table DROP CONSTRAINT $constraint");
+        $query->execute();
+    }
+
+    public static function deleteDatasInTheFKTable($table, $foreignKey, $value): void
+    {
+        $connectDb = ConnectDB::getInstance();
+        $pdo = $connectDb->getPdo();
+
+        $query = $pdo->prepare("DELETE FROM $table WHERE $foreignKey = :value");
+        $query->bindParam(':value', $value);
+        $query->execute();
+    }
+
+    public static function restoreFKConstraint($table, $constraint, $referencedColumn, $referencedTable): void
+    {
+        $connectDb = ConnectDB::getInstance();
+        $pdo = $connectDb->getPdo();
+
+        $query = $pdo->prepare("ALTER TABLE $table ADD CONSTRAINT $constraint FOREIGN KEY ($referencedColumn) REFERENCES public.$referencedTable (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID");
+        $query->execute();
+    }
 }

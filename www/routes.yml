@@ -62,3 +62,19 @@ admin/updatepage:
 admin/deletepage:
   controller: Backoffice
   action: deletePage
+  
+admin/recipes:
+  controller: Backoffice
+  action: manageRecipes
+
+admin/editrecipe:
+  controller: Backoffice
+  action: editRecipe
+
+admin/updaterecipe:
+  controller: Backoffice
+  action: updateRecipe
+
+admin/deleterecipe:
+  controller: Backoffice
+  action: deleteRecipe
