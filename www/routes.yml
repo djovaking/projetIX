@@ -94,3 +94,19 @@ admin/updatecategorie:
 admin/deletecategorie:
   controller: Backoffice
   action: deleteCategorie
+
+admin/comments:
+  controller: Backoffice
+  action: manageComments
+
+admin/editcomment:
+  controller: Backoffice
+  action: editComment
+
+admin/updatecomment:
+  controller: Backoffice
+  action: updateComment
+
+admin/deletecomment:
+  controller: Backoffice
+  action: deleteComment

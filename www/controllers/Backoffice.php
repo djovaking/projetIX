@@ -9,6 +9,7 @@ use App\models\Categorie;
 use App\models\User;
 use App\models\Page;
 use App\models\Recipe;
+use App\models\Comment;
 
 final class Backoffice
 {
@@ -269,6 +270,61 @@ final class Backoffice
 
         // Redirect 
         header("Location: categories");
+        exit;
+    }
+
+    public function manageComments()
+    {
+        // Create an instance of the ConnectDB class
+        $db = ConnectDB::getInstance();
+
+        // Get all comments from the "fp_comment" table
+        $comments = $db->getAll('fp_comment');
+        // Pass the comment data to the view
+        $view = new View("backoffice/comments", "back");
+        $view->assign('comments', $comments);
+    }
+
+    public function editComment()
+    {
+        $view = new View("backoffice/editComment", 'back');
+    }
+
+    public function updateComment()
+    {
+        foreach ($_POST as $key => $value) {
+            echo $key;
+            echo "  ";
+            echo $value;
+            echo "<br>";
+        }
+        // Extract the comment ID from the form data
+        $commentId = $_POST['commentId'];
+        // Check if the comment ID is provided
+        if (isset($commentId)) {
+            // Create a new Comment object
+            $comment = new Comment();
+            // Set the comment object's properties with form data
+            $comment->setId($commentId);
+            $comment->setText($_POST['text']);
+            // Call the update() method to update the comment object in the database
+            $comment->update();
+            // Redirect to a success page or display a success message
+            header("Location: comments");
+            // exit;
+        } else {
+            // comment ID not provided, handle the error or redirect to a different page
+            die("Comment ID not provided");
+        }
+    }
+
+    public function deleteComment()
+    {
+        $commentId = $_GET['commentId'];
+        Comment::deleteBy('id', $commentId);
+
+        // Redirect 
+        header("Location: comments");
         exit;
     }
 }
