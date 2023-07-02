@@ -18,7 +18,7 @@ class User extends ORM
     protected $date_updated;
     protected $status = 0;
     protected $user_role = 'basic';
-    protected $identifier = "12345";
+    protected $identifier;
     protected $fp_setting_id = 1;
 
     public function __construct()
