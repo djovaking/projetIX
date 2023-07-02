@@ -78,3 +78,19 @@ admin/updaterecipe:
 admin/deleterecipe:
   controller: Backoffice
   action: deleteRecipe
+
+admin/categories:
+  controller: Backoffice
+  action: manageCategories
+
+admin/editcategorie:
+  controller: Backoffice
+  action: editCategorie
+
+admin/updatecategorie:
+  controller: Backoffice
+  action: updateCategorie
+
+admin/deletecategorie:
+  controller: Backoffice
+  action: deleteCategorie

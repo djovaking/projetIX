@@ -5,6 +5,7 @@ namespace App\controllers;
 use App\core\View;
 use App\core\SessionManager;
 use App\core\ConnectDB;
+use App\models\Categorie;
 use App\models\User;
 use App\models\Page;
 use App\models\Recipe;
@@ -213,6 +214,61 @@ final class Backoffice
 
         // Redirect 
         header("Location: recipes");
+        exit;
+    }
+
+    public function manageCategories()
+    {
+        // Create an instance of the ConnectDB class
+        $db = ConnectDB::getInstance();
+
+        // Get all categories from the "fp_categorie" table
+        $categories = $db->getAll('fp_categorie');
+        // Pass the categorie data to the view
+        $view = new View("backoffice/categories", "back");
+        $view->assign('categories', $categories);
+    }
+
+    public function editCategorie()
+    {
+        $view = new View("backoffice/editCategorie", 'back');
+    }
+
+    public function updateCategorie()
+    {
+        foreach ($_POST as $key => $value) {
+            echo $key;
+            echo "  ";
+            echo $value;
+            echo "<br>";
+        }
+        // Extract the categorie ID from the form data
+        $categorieId = $_POST['categorieId'];
+        // Check if the categorie ID is provided
+        if (isset($categorieId)) {
+            // Create a new Categorie object
+            $categorie = new Categorie();
+            // Set the categorie object's properties with form data
+            $categorie->setId($categorieId);
+            $categorie->setName($_POST['name']);
+            // Call the update() method to update the categorie object in the database
+            $categorie->update();
+            // Redirect to a success page or display a success message
+            header("Location: categories");
+            // exit;
+        } else {
+            // categorie ID not provided, handle the error or redirect to a different page
+            die("Categorie ID not provided");
+        }
+    }
+
+    public function deleteCategorie()
+    {
+        $categorieId = $_GET['categorieId'];
+        Categorie::deleteBy('id', $categorieId);
+
+        // Redirect 
+        header("Location: categories");
         exit;
     }
 }
