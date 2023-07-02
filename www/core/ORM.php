@@ -68,6 +68,7 @@ abstract class ORM
     }
     public function update(): void
     {
+        $connectDb = ConnectDB::getInstance();
         if ($this->getId() === -1) {
             throw new \Exception("Cannot update object without an ID");
         }
@@ -87,7 +88,7 @@ abstract class ORM
             }
         }
 
-        $queryPrepared = $this->pdo->prepare("UPDATE " . $this->table .
+        $queryPrepared = $connectDb->getPdo()->prepare("UPDATE " . self::getTable() .
             " SET " . implode(",", $sqlUpdate) .
             " WHERE id=" . $this->getId());
 
