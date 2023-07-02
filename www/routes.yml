@@ -110,3 +110,19 @@ admin/updatecomment:
 admin/deletecomment:
   controller: Backoffice
   action: deleteComment
+
+admin/ingredients:
+  controller: Backoffice
+  action: manageIngredients
+
+admin/editingredient:
+  controller: Backoffice
+  action: editIngredient
+
+admin/updateingredient:
+  controller: Backoffice
+  action: updateIngredient
+
+admin/deleteingredient:
+  controller: Backoffice
+  action: deleteIngredient

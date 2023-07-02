@@ -10,6 +10,7 @@ use App\models\User;
 use App\models\Page;
 use App\models\Recipe;
 use App\models\Comment;
+use App\models\Ingredient;
 
 final class Backoffice
 {
@@ -325,6 +326,61 @@ final class Backoffice
 
         // Redirect 
         header("Location: comments");
+        exit;
+    }
+
+    public function manageIngredients()
+    {
+        // Create an instance of the ConnectDB class
+        $db = ConnectDB::getInstance();
+
+        // Get all ingredients from the "fp_ingredient" table
+        $ingredients = $db->getAll('fp_ingredient');
+        // Pass the ingredient data to the view
+        $view = new View("backoffice/ingredients", "back");
+        $view->assign('ingredients', $ingredients);
+    }
+
+    public function editIngredient()
+    {
+        $view = new View("backoffice/editIngredient", 'back');
+    }
+
+    public function updateIngredient()
+    {
+        foreach ($_POST as $key => $value) {
+            echo $key;
+            echo "  ";
+            echo $value;
+            echo "<br>";
+        }
+        // Extract the ingredient ID from the form data
+        $ingredientId = $_POST['ingredientId'];
+        // Check if the ingredient ID is provided
+        if (isset($ingredientId)) {
+            // Create a new Ingredient object
+            $ingredient = new Ingredient();
+            // Set the ingredient object's properties with form data
+            $ingredient->setId($ingredientId);
+            $ingredient->setName($_POST['name']);
+            // Call the update() method to update the ingredient object in the database
+            $ingredient->update();
+            // Redirect to a success page or display a success message
+            header("Location: ingredients");
+            // exit;
+        } else {
+            // ingredient ID not provided, handle the error or redirect to a different page
+            die("Ingredient ID not provided");
+        }
+    }
+
+    public function deleteIngredient()
+    {
+        $ingredientId = $_GET['ingredientId'];
+        Ingredient::deleteBy('id', $ingredientId);
+
+        // Redirect 
+        header("Location: ingredients");
         exit;
     }
 }
