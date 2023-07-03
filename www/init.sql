@@ -2,6 +2,7 @@
 -- Please log an issue at https://redmine.postgresql.org/projects/pgadmin4/issues/new if you find any bugs, including reproduction steps.
 BEGIN;
 
+DROP TABLE IF EXISTS public.fp_restaurants CASCADE;
 
 DROP TABLE IF EXISTS public.fp_user CASCADE;
 
@@ -18,7 +19,6 @@ CREATE TABLE IF NOT EXISTS public.fp_user
     password character varying(255) NOT NULL,
     date_created timestamp with time zone NOT NULL,
     date_updated time with time zone NOT NULL,
-	user_role character varying(45) NOT NULL,
     identifier character varying(36) NOT NULL,
     status boolean NOT NULL,
     fp_setting_id serial NOT NULL,
