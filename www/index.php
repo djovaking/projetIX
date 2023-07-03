@@ -5,17 +5,18 @@ namespace App;
 use App\core\SessionManager;
 
 require "conf.inc.php";
+require "./vendor/autoload.php";
 
 
 
-spl_autoload_register(function ($class) {
-    //die($class); //  models/User
-    $class = str_ireplace("App\\", "", $class);
-    $class = str_replace("\\", "/", $class);
-    if (file_exists($class . ".php")) {
-        include $class . ".php";
-    }
-});
+// spl_autoload_register(function ($class) {
+//     //die($class); //  models/User
+//     $class = str_ireplace("App\\", "", $class);
+//     $class = str_replace("\\", "/", $class);
+//     if (file_exists($class . ".php")) {
+//         include $class . ".php";
+//     }
+// });
 
 
 $base_uri = strtolower(trim($_SERVER["REQUEST_URI"], "/"));

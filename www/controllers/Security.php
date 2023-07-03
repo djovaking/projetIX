@@ -4,7 +4,8 @@ namespace App\controllers;
 
 require_once __DIR__ . '/../conf.inc.php';
 require_once __DIR__ . '/../core/JWT.php';
-require_once __DIR__ . '/../service/random_function.php';
+require_once __DIR__ . '/../services/random_function.php';
+
 
 use App\core\View;
 use App\Forms\Register;
@@ -12,6 +13,7 @@ use App\Forms\Login;
 use App\models\User;
 use App\core\SessionManager;
 use JWT;
+use App\core\Email;
 
 use function App\services\generateRandomString;
 
@@ -88,6 +90,12 @@ final class Security
     public function register()
     {
         $form = new Register();
+
+        $view = new View("security/register", "account");
+        $view->assign('form', $form->getConfig());
+        $view->assign('formErrors', $form->listOfErrors);
+
+
         if ($form->isSubmited() && $form->isValid()) {
             // Create a new User object
             $user = new User();
@@ -97,26 +105,75 @@ final class Security
             $user->setLastName($_POST['lastname']);
             $user->setEmail($_POST['email']);
             $user->setPassword($_POST['password']);
+            $email = $_POST['email'];
             $user->setIdentifier(generateRandomString(18)); //generate a 36 uuid characters in hexadecimal
 
-            // check if email is already registered in database
-            $email = $_POST['email'];
 
+            // Verification
             if (User::getByEmail($email)) {
-                // Email already exists, display an error message to the user
                 echo "Email already registered";
             } else {
-                // Call the save() method to save the user object into the database
+                echo "Email register";
+                // echo $prenom;
                 $user->save();
-                echo "OK";
+
+                $this->sendConfirmationEmail();
             }
         }
-
-        $view = new View("security/register", "account");
-        $view->assign('form', $form->getConfig());
-        $view->assign('formErrors', $form->listOfErrors);
     }
 
+    public function sendConfirmationEmail()
+    {
+
+        $prenom = $_POST["firstname"];
+        $to = $_POST["email"];
+        // $password = $_POST["password"];
+        // echo ($email);
+
+        $subject = "FoodPress - Confirmation d'inscription";
+
+        $body = "Bonjour $prenom,\r\n
+                Merci de valider votre inscription en cliquant sur le lien suivant:\r\n";
+
+        $headers = "De: FoodPress@no-reply.com\r\n";
+        $headers .= "Content-type: text/html\r\n";
+
+        $url = 'localhost/email-confirmation';
+        $token = generateRandomString(32);
+
+        $mailData = array(
+            'to' => $to,
+            'body' => $body,
+            'url' => $url,
+            'token' => $token
+        );
+
+        // sendEmail($to, $message);
+        $confirmationEmail = new Email($mailData);
+        $confirmationEmail->sendEmail();
+
+        $view = new View("security/email-waiting-validation", "account");
+    }
+
+    // ------- Dans controller ou dans une page directement? Pour ne pas qu'un utilisateur aille dans une la page avec ses petit doigts. Rajouter Err403 dans ce cas?
+    public function confirmEmail()
+    {
+        if (isset($_GET['token'])) {
+            // Get token form url
+            $jetonConfirmation = $_GET['token'];
+
+            // Utiliser le jeton de confirmation pour confirmer l'action ou mettre à jour votre base de données, par exemple.
+            // Vous pouvez appeler une fonction ou exécuter le code nécessaire ici.
+            //SELECT FROM table <user> form
+
+            // Afficher un message de confirmation à l'utilisateur
+            echo "Votre compte a été confirmé avec succès !";
+            var_dump("token : $jetonConfirmation");
+        } else {
+            // Le jeton de confirmation est manquant, afficher un message d'erreur ou rediriger l'utilisateur, par exemple.
+            echo "Jeton de confirmation manquant. Veuillez vérifier le lien dans votre email.";
+        }
+    }
 
 
     public function logout()
