@@ -126,3 +126,19 @@ admin/updateingredient:
 admin/deleteingredient:
   controller: Backoffice
   action: deleteIngredient
+
+admin/medias:
+  controller: Backoffice
+  action: manageMedias
+
+admin/editmedia:
+  controller: Backoffice
+  action: editMedia
+
+admin/updatemedia:
+  controller: Backoffice
+  action: updateMedia
+
+admin/deletemedia:
+  controller: Backoffice
+  action: deleteMedia

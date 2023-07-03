@@ -11,6 +11,7 @@ use App\models\Page;
 use App\models\Recipe;
 use App\models\Comment;
 use App\models\Ingredient;
+use App\models\Media;
 
 final class Backoffice
 {
@@ -381,6 +382,62 @@ final class Backoffice
 
         // Redirect 
         header("Location: ingredients");
+        exit;
+    }
+
+    public function manageMedias()
+     {
+        // Create an instance of the ConnectDB class
+        $db = ConnectDB::getInstance();
+
+        // Get all medias from the "fp_media" table
+        $medias = $db->getAll('fp_media');
+        // Pass the media data to the view
+        $view = new View("backoffice/medias", "back");
+        $view->assign('medias', $medias);
+    }
+
+    public function editMedia()
+    {
+        $view = new View("backoffice/editMedia", 'back');
+    }
+
+    public function updateMedia()
+    {
+        foreach ($_POST as $key => $value) {
+            echo $key;
+            echo "  ";
+            echo $value;
+            echo "<br>";
+        }
+        // Extract the media ID from the form data
+        $mediaId = $_POST['mediaId'];
+        // Check if the media ID is provided
+        if (isset($mediaId)) {
+            // Create a new Media object
+            $media = new Media();
+            // Set the media object's properties with form data
+            $media->setId($mediaId);
+            $media->setName($_POST['name']);
+            $media->setDescription($_POST['description']);
+            // Call the update() method to update the media object in the database
+            $media->update();
+            // Redirect to a success page or display a success message
+            header("Location: medias");
+            // exit;
+        } else {
+            // media ID not provided, handle the error or redirect to a different page
+            die("Media ID not provided");
+        }
+    }
+
+    public function deleteMedia()
+    {
+        $mediaId = $_GET['mediaId'];
+        Media::deleteBy('id', $mediaId);
+
+        // Redirect 
+        header("Location: medias");
         exit;
     }
 }
