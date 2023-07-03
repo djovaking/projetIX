@@ -10,6 +10,7 @@
             <li><a href="/admin/comments">Manage Comments</a></li>
             <li><a href="/admin/ingredients">Manage Ingredients</a></li>
             <li><a href="/admin/medias">Manage Medias</a></li>
+            <li><a href="/admin/reservations">Manage Reservations</a></li>
             <li><a href="/admin/settings">Settings</a></li>
         </ul>
     </nav>

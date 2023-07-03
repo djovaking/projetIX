@@ -142,3 +142,19 @@ admin/updatemedia:
 admin/deletemedia:
   controller: Backoffice
   action: deleteMedia
+
+admin/reservations:
+  controller: Backoffice
+  action: manageReservations
+
+admin/editreservation:
+  controller: Backoffice
+  action: editReservation
+
+admin/updatereservation:
+  controller: Backoffice
+  action: updateReservation
+
+admin/deletereservation:
+  controller: Backoffice
+  action: deleteReservation
