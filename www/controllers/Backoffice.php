@@ -12,6 +12,7 @@ use App\models\Recipe;
 use App\models\Comment;
 use App\models\Ingredient;
 use App\models\Media;
+use App\models\Reservation;
 
 final class Backoffice
 {
@@ -438,6 +439,66 @@ final class Backoffice
 
         // Redirect 
         header("Location: medias");
+        exit;
+    }
+
+    public function manageReservations()
+     {
+        // Create an instance of the ConnectDB class
+        $db = ConnectDB::getInstance();
+
+        // Get all reservations from the "fp_reservation" table
+        $reservations = $db->getAll('fp_reservation');
+        // Pass the reservation data to the view
+        $view = new View("backoffice/reservations", "back");
+        $view->assign('reservations', $reservations);
+    }
+
+    public function editReservation()
+    {
+        $view = new View("backoffice/editReservation", 'back');
+    }
+
+    public function updateReservation()
+    {
+        foreach ($_POST as $key => $value) {
+            echo $key;
+            echo "  ";
+            echo $value;
+            echo "<br>";
+        }
+        // Extract the reservation ID from the form data
+        $reservationId = $_POST['reservationId'];
+        // Check if the reservation ID is provided
+        if (isset($reservationId)) {
+            // Create a new Reservation object
+            $reservation = new Reservation();
+            // Set the reservation object's properties with form data
+            $reservation->setId($reservationId);
+            $reservation->setDate($_POST['date']);
+            $reservation->setTime($_POST['time']);
+            $reservation->setNbPerson($_POST['nb_person']);
+            $reservation->setFirstname($_POST['firstname']);
+            $reservation->setLastname($_POST['lastname']);
+            $reservation->setPhone($_POST['phone']);
+            // Call the update() method to update the reservation object in the database
+            $reservation->update();
+            // Redirect to a success page or display a success message
+            header("Location: reservations");
+            // exit;
+        } else {
+            // reservation ID not provided, handle the error or redirect to a different page
+            die("Reservation ID not provided");
+        }
+    }
+
+    public function deleteReservation()
+    {
+        $reservationId = $_GET['reservationId'];
+        Reservation::deleteBy('id', $reservationId);
+
+        // Redirect 
+        header("Location: reservations");
         exit;
     }
 }
