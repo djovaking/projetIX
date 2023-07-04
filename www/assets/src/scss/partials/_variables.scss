@@ -1,0 +1,25 @@
+/* Couleurs */
+$pastel-green: #87a397;
+$brown: #e0b99b;
+$light-green: #e8f6f3;
+$beige: #fbeadf;
+$dark-green: #00727d;
+$orange: #f6aa8d;
+$grey: #b7b7ad;
+
+$white: #fff;
+$black: #000;
+
+::root {
+  --primary:       #{$pastel-green};
+  --secondary:     #{$beige};
+  --tertiary:      #{$orange};
+
+  --light-green:   #{$light-green};
+  --dark-green:    #{$dark-green};
+
+  --brown:         #{$brown};
+  --grey:          #{$grey};
+  --white:         #{$white};
+  --black:         #{$black};
+}
