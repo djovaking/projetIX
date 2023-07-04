@@ -38,14 +38,10 @@ reservation:
   controller : "Front"
   action : "reservation"
 
-admin/reservation/edit/{id}:
+admin/reservations/edit:
   controller: Backoffice
   action: editReservation
 
-admin/reservation/update/{id}:
-  controller: Backoffice
-  action: updateReservation
-
-admin/reservation/delete/{id}:
+admin/reservation/delete:
   controller: Backoffice
   action: deleteReservation

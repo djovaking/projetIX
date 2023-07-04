@@ -17,7 +17,7 @@
                     <td><?php echo $value; ?></td>
                 <?php endforeach; ?>
                 <td>
-                    <a href="/admin/reservations/edit/<?php echo $reservation['id']; ?>">Edit</a>
+                    <a href="/admin/reservations/edit?reservationId=<?php echo $reservation['id']; ?>">Edit</a>
                     <a href="/admin/reservations/delete/<?php echo $reservation['id']; ?>">Delete</a>
                 </td>
             </tr>

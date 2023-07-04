@@ -57,25 +57,5 @@ final class Front
         $view->assign('formErrors', $form->listOfErrors);
     }
 
-    public function edit($id)
-    {
-        // Récupérer la réservation par son ID depuis la base de données
-        $reservation = Reservation::getId($id);
-
-        // Afficher le formulaire d'édition avec les données de la réservation
-    }
-
-    public function update($id)
-    {
-        // Récupérer les données du formulaire d'édition
-        // Mettre à jour la réservation correspondante dans la base de données
-        // Rediriger ou afficher un message de succès
-    }
-
-    public function delete($id)
-    {
-        // Supprimer la réservation correspondante de la base de données
-        // Rediriger ou afficher un message de succès
-    }
 
 }

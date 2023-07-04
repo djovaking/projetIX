@@ -33,4 +33,20 @@ final class ConnectDB
         // Return the list of records
         return $records;
     }
+    
+    public function delete($table, $id)
+    {
+        // Prepare the SQL query to delete the specified record from the table
+        $query = "DELETE FROM " . $table . " WHERE id = :id";
+        $statement = $this->pdo->prepare($query);
+        
+        // Bind the ID parameter
+        $statement->bindParam(':id', $id);
+        
+        // Execute the query
+        $statement->execute();
+        
+        // Return the number of affected rows
+        return $statement->rowCount();
+    }
 }

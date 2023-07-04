@@ -91,27 +91,9 @@ final class Backoffice
         // Rediriger ou afficher un message de succès
     }
 
-    public function editReservation($id)
+    public function editReservation()
     {
-        // Récupérer la réservation par son ID depuis la base de données
-        $db = new ConnectDB();
-        $reservation = $db->getById('fp_reservation', $id);
-
-        // Vérifier si la réservation existe
-        if ($reservation) {
-            // Construire l'URL de la réservation éditée
-            $url = "http://localhost/admin/reservations/edit/" . $id;
-
-            // Afficher la vue de la réservation avec l'URL et les données de la réservation
-            $view = new View("backoffice/edit-reservation", "back");
-            $view->assign('reservation', $reservation);
-            $view->assign('editUrl', $url);
-            $view->render();
-        } else {
-            // Gérer le cas où la réservation n'existe pas
-            // Par exemple, rediriger vers une page d'erreur ou afficher un message approprié
-            echo "Reservation not found.";
-        }
+        $view = new View("backoffice/editReservation", 'back');
     }
 
 
