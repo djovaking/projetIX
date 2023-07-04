@@ -21,7 +21,9 @@ CREATE TABLE IF NOT EXISTS public.fp_user
     date_updated time with time zone NOT NULL,
     identifier character varying(36) NOT NULL,
     status boolean NOT NULL,
+    token character varying(36),
     fp_setting_id serial NOT NULL,
+
     CONSTRAINT fp_user_id PRIMARY KEY (id),
     CONSTRAINT fp_user_email UNIQUE (email),
     CONSTRAINT fp_user_identifier UNIQUE (identifier)

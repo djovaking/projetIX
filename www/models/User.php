@@ -19,6 +19,7 @@ class User extends ORM
     protected $status = 0;
     protected $user_role = 'basic';
     protected $identifier;
+    protected $token;
     protected $fp_setting_id = 1;
 
     public function __construct()
@@ -193,6 +194,16 @@ class User extends ORM
     public function setIdentifier(string $identifier): void
     {
         $this->identifier = $identifier;
+    }
+
+    public function getToken(): string
+    {
+        return $this->token;
+    }
+
+    public function setToken(string $token): void
+    {
+        $this->token = $token;
     }
 
     /**

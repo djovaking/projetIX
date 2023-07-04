@@ -7,14 +7,15 @@ require_once __DIR__ . '/../core/JWT.php';
 require_once __DIR__ . '/../services/random_function.php';
 
 
+use JWT;
 use App\core\View;
-use App\Forms\Register;
+use App\core\Email;
 use App\Forms\Login;
 use App\models\User;
-use App\core\SessionManager;
-use JWT;
-use App\core\Email;
+use App\core\ConnectDB;
+use App\Forms\Register;
 
+use App\core\SessionManager;
 use function App\services\generateRandomString;
 
 final class Security
@@ -108,6 +109,12 @@ final class Security
             $email = $_POST['email'];
             $user->setIdentifier(generateRandomString(18)); //generate a 36 uuid characters in hexadecimal
 
+            // $token = $user->setToken(generateRandomString(18));
+
+
+            $token = generateRandomString(18);
+            $user->setToken($token);
+
 
             // Verification
             if (User::getByEmail($email)) {
@@ -117,12 +124,12 @@ final class Security
                 // echo $prenom;
                 $user->save();
 
-                $this->sendConfirmationEmail();
+                $this->sendConfirmationEmail($token);
             }
         }
     }
 
-    public function sendConfirmationEmail()
+    public function sendConfirmationEmail($tokenInput)
     {
 
         $prenom = $_POST["firstname"];
@@ -139,7 +146,8 @@ final class Security
         $headers .= "Content-type: text/html\r\n";
 
         $url = 'localhost/email-confirmation';
-        $token = generateRandomString(32);
+        // $token = generateRandomString(18);
+        $token = $tokenInput;
 
         $mailData = array(
             'to' => $to,
@@ -148,7 +156,6 @@ final class Security
             'token' => $token
         );
 
-        // sendEmail($to, $message);
         $confirmationEmail = new Email($mailData);
         $confirmationEmail->sendEmail();
 
@@ -160,15 +167,26 @@ final class Security
     {
         if (isset($_GET['token'])) {
             // Get token form url
-            $jetonConfirmation = $_GET['token'];
+            $tokenEmail = $_GET['token'];
 
-            // Utiliser le jeton de confirmation pour confirmer l'action ou mettre à jour votre base de données, par exemple.
-            // Vous pouvez appeler une fonction ou exécuter le code nécessaire ici.
+            // 
             //SELECT FROM table <user> form
+            $db = ConnectDB::getInstance();
 
-            // Afficher un message de confirmation à l'utilisateur
+            $queryPrepared = $db->getPdo()->prepare("UPDATE fp_user SET status = TRUE WHERE token = :token");
+            $queryPrepared->execute(array('token' => $tokenEmail));
+
+            // $queryPrepared = $this->pdo->prepare("UPDATE " . $this->table .
+            // " SET " . implode(",", $sqlUpdate) .
+            // " WHERE id=" . $this->getId());
+
+            // SELECT token FROM user WHERE token  = :token
+
+            // UPDATE utilisateurs SET status = TRUE WHERE token = :token
+
+            // Affiche un message de confirmation à l'utilisateur
             echo "Votre compte a été confirmé avec succès !";
-            var_dump("token : $jetonConfirmation");
+            var_dump("token : $tokenEmail");
         } else {
             // Le jeton de confirmation est manquant, afficher un message d'erreur ou rediriger l'utilisateur, par exemple.
             echo "Jeton de confirmation manquant. Veuillez vérifier le lien dans votre email.";

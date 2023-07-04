@@ -33,7 +33,7 @@ class Email
             // paramètres de connexion SMTP pour le serveur Gmail 
             $this->mail->isSMTP();                // Use smtp protocol
             $this->mail->Host         = 'smtp.gmail.com'; // Gmail server smtp 
-            $this->mail->SMTPDebug    = SMTP::DEBUG_SERVER; //Enable verbose debug output
+            // $this->mail->SMTPDebug    = SMTP::DEBUG_SERVER; //Enable verbose debug output
             $this->mail->SMTPSecure   = PHPMailer::ENCRYPTION_SMTPS; //Enable implicit TLS encryption
             $this->mail->Port         = 465; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
             $this->mail->SMTPAuth     = true; // Activation de l'authentification SMTP
@@ -46,14 +46,8 @@ class Email
 
             $this->mail->isHTML(true); // Set email to HTML format
             $this->mail->Subject = 'FoodPress - Confirmation d\'inscription'; // Sujet de l'email
-            // $this->mail->Body = $body; // Corps de l'email
-
-
-
+            //lien route + token
             $this->mail->Body = $this->emailData['body'] . '<b><a href="' . $this->emailData['url'] . '?token=' . $this->emailData['token'] . '">"' . $this->emailData['url'] . '?token=' . $this->emailData['token'] . '"</a></b>';
-
-
-            // reste lien href a envoyé comprenant : token a envoyé . token
 
             $this->mail->send();
             echo 'Email send with success';
