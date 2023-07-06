@@ -50,9 +50,10 @@ class Email
             $this->mail->Body = $this->emailData['body'] . '<b><a href="' . $this->emailData['url'] . '?token=' . $this->emailData['token'] . '">"' . $this->emailData['url'] . '?token=' . $this->emailData['token'] . '"</a></b>';
 
             $this->mail->send();
-            echo 'Email send with success';
+            return true;
         } catch (Exception $e) {
-            echo 'Error when sending' . $this->mail->ErrorInfo;
+            // echo 'Error when sending' . $this->mail->ErrorInfo;
+            throw new Exception('Error when sending' . $this->mail->ErrorInfo);
         }
     }
 }

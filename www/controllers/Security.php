@@ -120,8 +120,7 @@ final class Security
             if (User::getByEmail($email)) {
                 echo "Email already registered";
             } else {
-                echo "Email register";
-                // echo $prenom;
+
                 $user->save();
 
                 $this->sendConfirmationEmail($token);
@@ -146,7 +145,6 @@ final class Security
         $headers .= "Content-type: text/html\r\n";
 
         $url = 'localhost/email-confirmation';
-        // $token = generateRandomString(18);
         $token = $tokenInput;
 
         $mailData = array(
@@ -157,9 +155,11 @@ final class Security
         );
 
         $confirmationEmail = new Email($mailData);
-        $confirmationEmail->sendEmail();
-
-        $view = new View("security/email-waiting-validation", "account");
+        if ($confirmationEmail->sendEmail()) {
+            header('Location: /email-waiting-validation');
+        } else {
+            echo "Une erreur s'est produite lors de l'envoi de l'email.";
+        }
     }
 
     // ------- Dans controller ou dans une page directement? Pour ne pas qu'un utilisateur aille dans une la page avec ses petit doigts. Rajouter Err403 dans ce cas?
@@ -168,27 +168,14 @@ final class Security
         if (isset($_GET['token'])) {
             // Get token form url
             $tokenEmail = $_GET['token'];
-
-            // 
-            //SELECT FROM table <user> form
             $db = ConnectDB::getInstance();
 
+            // Update le status du compte
             $queryPrepared = $db->getPdo()->prepare("UPDATE fp_user SET status = TRUE WHERE token = :token");
             $queryPrepared->execute(array('token' => $tokenEmail));
 
-            // $queryPrepared = $this->pdo->prepare("UPDATE " . $this->table .
-            // " SET " . implode(",", $sqlUpdate) .
-            // " WHERE id=" . $this->getId());
-
-            // SELECT token FROM user WHERE token  = :token
-
-            // UPDATE utilisateurs SET status = TRUE WHERE token = :token
-
-            // Affiche un message de confirmation à l'utilisateur
-            echo "Votre compte a été confirmé avec succès !";
-            var_dump("token : $tokenEmail");
+            $view = new View("security/email-confirmation", "front");
         } else {
-            // Le jeton de confirmation est manquant, afficher un message d'erreur ou rediriger l'utilisateur, par exemple.
             echo "Jeton de confirmation manquant. Veuillez vérifier le lien dans votre email.";
         }
     }
@@ -199,7 +186,7 @@ final class Security
         // delete les variables de session
         $sessionManager = SessionManager::getInstance();
         $sessionManager->logout();
-        // on redirige vers la page de co comme le user est log out
+        // on redirige vers la page de connexion comme le user est log out
         header('Location: /login');
         exit;
     }

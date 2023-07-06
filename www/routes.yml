@@ -18,6 +18,10 @@ email-confirmation:
   controller: "Security"
   action: "confirmEmail"
 
+email-waiting-validation:
+  controller: "Front"
+  action: "emailWaitingValidation"
+
 login:
   controller: "Security"
   action: "login"
