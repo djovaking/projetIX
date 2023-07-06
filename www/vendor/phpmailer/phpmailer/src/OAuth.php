@@ -25,7 +25,6 @@ use League\OAuth2\Client\Grant\RefreshToken;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Token\AccessToken;
 
-
 /**
  * OAuth - OAuth2 authentication wrapper class.
  * Uses the oauth2-client package from the League of Extraordinary Packages.
@@ -131,10 +130,10 @@ class OAuth implements OAuthTokenProvider
 
         return base64_encode(
             'user=' .
-                $this->oauthUserEmail .
-                "\001auth=Bearer " .
-                $this->oauthToken .
-                "\001\001"
+            $this->oauthUserEmail .
+            "\001auth=Bearer " .
+            $this->oauthToken .
+            "\001\001"
         );
     }
 }

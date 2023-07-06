@@ -8,7 +8,7 @@ require "conf.inc.php";
 require "./vendor/autoload.php";
 
 
-
+// OLD AUTOLOADER
 // spl_autoload_register(function ($class) {
 //     //die($class); //  models/User
 //     $class = str_ireplace("App\\", "", $class);

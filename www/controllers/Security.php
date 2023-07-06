@@ -109,9 +109,6 @@ final class Security
             $email = $_POST['email'];
             $user->setIdentifier(generateRandomString(18)); //generate a 36 uuid characters in hexadecimal
 
-            // $token = $user->setToken(generateRandomString(18));
-
-
             $token = generateRandomString(18);
             $user->setToken($token);
 
@@ -133,8 +130,6 @@ final class Security
 
         $prenom = $_POST["firstname"];
         $to = $_POST["email"];
-        // $password = $_POST["password"];
-        // echo ($email);
 
         $subject = "FoodPress - Confirmation d'inscription";
 

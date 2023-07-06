@@ -19,7 +19,6 @@
  * FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-
 namespace PHPMailer\PHPMailer;
 
 /**
@@ -462,7 +461,7 @@ class POP3
     {
         $this->setError(
             'Connecting to the POP3 server raised a PHP warning:' .
-                "errno: $errno errstr: $errstr; errfile: $errfile; errline: $errline"
+            "errno: $errno errstr: $errstr; errfile: $errfile; errline: $errline"
         );
     }
 }

@@ -2,12 +2,7 @@
 -- Please log an issue at https://redmine.postgresql.org/projects/pgadmin4/issues/new if you find any bugs, including reproduction steps.
 BEGIN;
 
-DROP TABLE IF EXISTS public.fp_restaurants CASCADE;
-
 DROP TABLE IF EXISTS public.fp_user CASCADE;
-
-DROP TABLE IF EXISTS public.fp_restaurant CASCADE;
-
 
 CREATE TABLE IF NOT EXISTS public.fp_user
 (
@@ -23,7 +18,7 @@ CREATE TABLE IF NOT EXISTS public.fp_user
     status boolean NOT NULL,
     token character varying(36),
     fp_setting_id serial NOT NULL,
-
+    user_role character varying(45) NOT NULL,
     CONSTRAINT fp_user_id PRIMARY KEY (id),
     CONSTRAINT fp_user_email UNIQUE (email),
     CONSTRAINT fp_user_identifier UNIQUE (identifier)
