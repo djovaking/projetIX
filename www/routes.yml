@@ -6,6 +6,14 @@ contact:
   controller: "Front"
   action: "contact"
 
+legal_notice:
+  controller: "Front"
+  action: "legalNotice"
+
+terms_sales:
+  controller: "Front"
+  action: "termSales"
+
 connexion:
   controller: "Security"
   action: "login"
