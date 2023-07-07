@@ -4,15 +4,18 @@ namespace App\controllers;
 
 require_once __DIR__ . '/../conf.inc.php';
 require_once __DIR__ . '/../core/JWT.php';
-require_once __DIR__ . '/../service/random_function.php';
+require_once __DIR__ . '/../services/random_function.php';
 
+
+use JWT;
 use App\core\View;
-use App\Forms\Register;
+use App\core\Email;
 use App\Forms\Login;
 use App\models\User;
-use App\core\SessionManager;
-use JWT;
+use App\core\ConnectDB;
+use App\Forms\Register;
 
+use App\core\SessionManager;
 use function App\services\generateRandomString;
 
 final class Security
@@ -88,6 +91,12 @@ final class Security
     public function register()
     {
         $form = new Register();
+
+        $view = new View("security/register", "account");
+        $view->assign('form', $form->getConfig());
+        $view->assign('formErrors', $form->listOfErrors);
+
+
         if ($form->isSubmited() && $form->isValid()) {
             // Create a new User object
             $user = new User();
@@ -97,26 +106,74 @@ final class Security
             $user->setLastName($_POST['lastname']);
             $user->setEmail($_POST['email']);
             $user->setPassword($_POST['password']);
+            $email = $_POST['email'];
             $user->setIdentifier(generateRandomString(18)); //generate a 36 uuid characters in hexadecimal
 
-            // check if email is already registered in database
-            $email = $_POST['email'];
+            $token = generateRandomString(18);
+            $user->setToken($token);
 
+
+            // Verification
             if (User::getByEmail($email)) {
-                // Email already exists, display an error message to the user
                 echo "Email already registered";
             } else {
-                // Call the save() method to save the user object into the database
+
                 $user->save();
-                echo "OK";
+
+                $this->sendConfirmationEmail($token);
             }
         }
-
-        $view = new View("security/register", "account");
-        $view->assign('form', $form->getConfig());
-        $view->assign('formErrors', $form->listOfErrors);
     }
 
+    public function sendConfirmationEmail($tokenInput)
+    {
+
+        $prenom = $_POST["firstname"];
+        $to = $_POST["email"];
+
+        $subject = "FoodPress - Confirmation d'inscription";
+
+        $body = "Bonjour $prenom,\r\n
+                Merci de valider votre inscription en cliquant sur le lien suivant:\r\n";
+
+        $headers = "De: FoodPress@no-reply.com\r\n";
+        $headers .= "Content-type: text/html\r\n";
+
+        $url = 'localhost/email-confirmation';
+        $token = $tokenInput;
+
+        $mailData = array(
+            'to' => $to,
+            'body' => $body,
+            'url' => $url,
+            'token' => $token
+        );
+
+        $confirmationEmail = new Email($mailData);
+        if ($confirmationEmail->sendEmail()) {
+            header('Location: /email-waiting-validation');
+        } else {
+            echo "Une erreur s'est produite lors de l'envoi de l'email.";
+        }
+    }
+
+    // ------- Dans controller ou dans une page directement? Pour ne pas qu'un utilisateur aille dans une la page avec ses petit doigts. Rajouter Err403 dans ce cas?
+    public function confirmEmail()
+    {
+        if (isset($_GET['token'])) {
+            // Get token form url
+            $tokenEmail = $_GET['token'];
+            $db = ConnectDB::getInstance();
+
+            // Update le status du compte
+            $queryPrepared = $db->getPdo()->prepare("UPDATE fp_user SET status = TRUE WHERE token = :token");
+            $queryPrepared->execute(array('token' => $tokenEmail));
+
+            $view = new View("security/email-confirmation", "front");
+        } else {
+            echo "Jeton de confirmation manquant. Veuillez vérifier le lien dans votre email.";
+        }
+    }
 
 
     public function logout()
@@ -124,7 +181,7 @@ final class Security
         // delete les variables de session
         $sessionManager = SessionManager::getInstance();
         $sessionManager->logout();
-        // on redirige vers la page de co comme le user est log out
+        // on redirige vers la page de connexion comme le user est log out
         header('Location: /login');
         exit;
     }

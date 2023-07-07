@@ -40,4 +40,9 @@ final class Front
     {
         $view = new View("main/terms_sales", "front");
     }
+  
+    public function emailWaitingValidation()
+    {
+        $view = new View("security/email-waiting-validation", "front");
+    }
 }
