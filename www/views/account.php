@@ -11,10 +11,9 @@
 
 
     <?php include 'header.php' ?>
-    <h2>Comptes</h2>
     <!-- la vue  -->
     <?php include $this->view; ?>
-
+    <?php include 'footer.php' ?>
 </body>
 
 </html>
