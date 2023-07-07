@@ -30,4 +30,14 @@ final class Front
     {
         $view = new View("main/contact", "front");
     }
+
+    public function legalNotice()
+    {
+        $view = new View("main/legal_notice", "front");
+    }
+
+    public function termSales()
+    {
+        $view = new View("main/terms_sales", "front");
+    }
 }

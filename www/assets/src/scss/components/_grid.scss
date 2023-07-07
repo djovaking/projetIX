@@ -1,4 +1,11 @@
 /* Génère les classes .col-1 à .col-12 */
+
+$gutter: 20px;
+$col-nb: 12;
+$sm-breakpoint: 1;
+$md-breakpoint: 0;
+$lg-breakpoint: 1;
+
 @for $i from 1 through 12 {
   .col-#{$i} {
     $percentage: ($i / 12) * 100;
