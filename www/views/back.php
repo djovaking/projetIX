@@ -5,17 +5,15 @@
     <meta charset="UTF-8">
     <title>Backoffice</title>
     <meta name="description" content="mon super site en MVC from scratch">
+    <link rel="stylesheet" href="../assets/dist/main.css">
 </head>
 
-<body>
+<body class="back">
     <?php include 'header_back.php' ?>
 
-
-    <main> <?php include $this->view; ?></main>
     <!-- la vue  -->
-    <!-- footer -->
-    <?php include 'footer.php' ?>
-
+    <main class="back"> <?php include $this->view; ?></main>
+    
 </body>
 
 </html>

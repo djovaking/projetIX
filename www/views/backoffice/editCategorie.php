@@ -7,8 +7,8 @@
         <input type="text" name="name" value="<?php echo $_GET['name']; ?>">
     </div>
     <button type="submit">Update</button>
-</form>
-<form method="POST" action="deleteCategorie">
-    <input type="hidden" name="categorieId" value="<?php echo $_GET['categorieId']; ?>">
-    <button type="submit" onclick="return confirm('Are you sure you want to delete this categorie?')">Supprimer la catégorie</button>
+    <form method="POST" action="deleteCategorie">
+        <input type="hidden" name="categorieId" value="<?php echo $_GET['categorieId']; ?>">
+        <button type="submit" onclick="return confirm('Are you sure you want to delete this categorie?')">Supprimer la catégorie</button>
+    </form>
 </form>

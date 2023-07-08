@@ -11,8 +11,8 @@
         <input type="text" name="description" value="<?php echo $_GET['description']; ?>">
     </div>
     <button type="submit">Update</button>
-</form>
-<form method="POST" action="deleteMedia">
-    <input type="hidden" name="mediaId" value="<?php echo $_GET['mediaId']; ?>">
-    <button type="submit" onclick="return confirm('Are you sure you want to delete this media ?')">Supprimer le media</button>
+    <form method="POST" action="deleteMedia">
+        <input type="hidden" name="mediaId" value="<?php echo $_GET['mediaId']; ?>">
+        <button type="submit" onclick="return confirm('Are you sure you want to delete this media ?')">Supprimer le media</button>
+    </form>
 </form>

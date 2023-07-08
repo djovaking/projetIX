@@ -7,8 +7,8 @@
         <input type="text" name="text" value="<?php echo $_GET['text']; ?>">
     </div>
     <button type="submit">Update</button>
-</form>
-<form method="POST" action="deleteComment">
-    <input type="hidden" name="commentId" value="<?php echo $_GET['commentId']; ?>">
-    <button type="submit" onclick="return confirm('Are you sure you want to delete this comment?')">Supprimer le commentaire</button>
+    <form method="POST" action="deleteComment">
+        <input type="hidden" name="commentId" value="<?php echo $_GET['commentId']; ?>">
+        <button type="submit" onclick="return confirm('Are you sure you want to delete this comment?')">Supprimer le commentaire</button>
+    </form>
 </form>

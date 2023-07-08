@@ -2,6 +2,7 @@
     <p>Aucun ingredient n'a été trouvé.</p>
 <?php else : ?>
     <table>
+        <h1>Ingredient Management</h1>
         <thead>
             <tr>
                 <?php foreach (array_keys($ingredients[0]) as $column) : ?>

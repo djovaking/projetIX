@@ -27,8 +27,8 @@
         <input type="text" name="phone" value="<?php echo $_GET['phone']; ?>">
     </div>
     <button type="submit">Update</button>
-</form>
-<form method="POST" action="deleteReservation">
-    <input type="hidden" name="reservationId" value="<?php echo $_GET['reservationId']; ?>">
-    <button type="submit" onclick="return confirm('Are you sure you want to delete this reservation ?')">Supprimer la réservation</button>
+    <form method="POST" action="deleteReservation">
+        <input type="hidden" name="reservationId" value="<?php echo $_GET['reservationId']; ?>">
+        <button type="submit" onclick="return confirm('Are you sure you want to delete this reservation ?')">Supprimer la réservation</button>
+    </form>
 </form>

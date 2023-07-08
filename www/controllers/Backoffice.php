@@ -13,6 +13,7 @@ use App\models\Comment;
 use App\models\Ingredient;
 use App\models\Media;
 use App\models\Reservation;
+use App\models\Setting;
 
 final class Backoffice
 {
@@ -82,9 +83,10 @@ final class Backoffice
             die("User ID not provided");
         }
     }
-    public function deleteuser()
+    public function deleteUser()
     {
-        $userId = $_POST['userId'];
+        $userId = $_GET['userId'];
+        User::deleteBy('id', $userId);
 
         User::dropFKConstraint('fp_reservation', 'fp_user_id');
         User::deleteDatasInTheFKTable('fp_reservation','fp_user_id',$userId);
@@ -499,6 +501,62 @@ final class Backoffice
 
         // Redirect 
         header("Location: reservations");
+        exit;
+    }
+
+    public function manageSettings()
+     {
+        // Create an instance of the ConnectDB class
+        $db = ConnectDB::getInstance();
+
+        // Get all settings from the "fp_setting" table
+        $settings = $db->getAll('fp_setting');
+        // Pass the setting data to the view
+        $view = new View("backoffice/settings", "back");
+        $view->assign('settings', $settings);
+    }
+
+    public function editSetting()
+    {
+        $view = new View("backoffice/editSetting", 'back');
+    }
+
+    public function updateSetting()
+    {
+        foreach ($_POST as $key => $value) {
+            echo $key;
+            echo "  ";
+            echo $value;
+            echo "<br>";
+        }
+        // Extract the setting ID from the form data
+        $settingId = $_POST['settingId'];
+        // Check if the setting ID is provided
+        if (isset($settingId)) {
+            // Create a new Setting object
+            $setting = new Setting();
+            // Set the setting object's properties with form data
+            $setting->setId($settingId);
+            $setting->setColor($_POST['color']);
+            $setting->setFont($_POST['font']);
+            // Call the update() method to update the setting object in the database
+            $setting->update();
+            // Redirect to a success page or display a success message
+            header("Location: settings");
+            // exit;
+        } else {
+            // setting ID not provided, handle the error or redirect to a different page
+            die("Setting ID not provided");
+        }
+    }
+
+    public function deleteSetting()
+    {
+        $settingId = $_GET['settingId'];
+        Setting::deleteBy('id', $settingId);
+
+        // Redirect 
+        header("Location: settings");
         exit;
     }
 }

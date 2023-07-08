@@ -1,10 +1,9 @@
 <!-- edituser.php -->
-
-<h1>Edit User</h1>
 <form method="POST" action="updateuser">
+    <h1>Edit User</h1>
     <input type="hidden" name="userId" value="<?php echo $_GET['userId']; ?>">
     <div>
-        <label for="firstame">firstame:</label>
+        <label for="firstame">Firstname:</label>
         <input type="text" name="firstame" value="<?php echo $_GET['firstName']; ?>">
     </div>
     <div>
@@ -23,8 +22,8 @@
         </select>
     </div>
     <button type="submit">Update</button>
-</form>
-<form method="POST" action="deleteuser">
-    <input type="hidden" name="userId" value="<?php echo $_GET['userId']; ?>">
-    <button type="submit" onclick="return confirm('Are you sure you want to delete this user?')">Supprimer le user</button>
+    <form method="POST" action="deleteuser">
+        <input type="hidden" name="userId" value="<?php echo $_GET['userId']; ?>">
+        <button type="submit" onclick="return confirm('Are you sure you want to delete this user?')">Supprimer le user</button>
+    </form>
 </form>
