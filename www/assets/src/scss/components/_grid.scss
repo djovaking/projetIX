@@ -1,0 +1,43 @@
+/* Génère les classes .col-1 à .col-12 */
+
+$gutter: 20px;
+$col-nb: 12;
+$sm-breakpoint: 1;
+$md-breakpoint: 0;
+$lg-breakpoint: 1;
+
+@for $i from 1 through 12 {
+  .col-#{$i} {
+    $percentage: ($i / 12) * 100;
+    flex-basis: percentage($i / 12);
+    width: percentage($i / 12);
+    padding: 0 calc(#{$gutter} / 2);
+  }
+}
+
+@media (min-width: $sm-breakpoint) {
+  @for $i from 1 through $col-nb {
+    .col-sm-#{$i} {
+      flex: 0 0 percentage($i / $col-nb);
+      max-width: percentage($i / $col-nb);
+    }
+  }
+}
+
+@media (min-width: $md-breakpoint) {
+  @for $i from 1 through $col-nb {
+    .col-md-#{$i} {
+      flex: 0 0 percentage($i / $col-nb);
+      max-width: percentage($i / $col-nb);
+    }
+  }
+}
+
+@media (min-width: $lg-breakpoint) {
+  @for $i from 1 through $col-nb {
+    .col-lg-#{$i} {
+      flex: 0 0 percentage($i / $col-nb);
+      max-width: percentage($i / $col-nb);
+    }
+  }
+}

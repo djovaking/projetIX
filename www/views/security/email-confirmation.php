@@ -1,0 +1,1 @@
+<h2>Email Confirmé! Bienvenue chez FoodPress!</h2>

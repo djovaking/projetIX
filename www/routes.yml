@@ -1,0 +1,192 @@
+default:
+  controller: "Front"
+  action: "home"
+
+contact:
+  controller: "Front"
+  action: "contact"
+
+legal_notice:
+  controller: "Front"
+  action: "legalNotice"
+
+terms_sales:
+  controller: "Front"
+  action: "termSales"
+
+connexion:
+  controller: "Security"
+  action: "login"
+
+s-inscrire:
+  controller: "Security"
+  action: "register"
+
+email-confirmation:
+  controller: "Security"
+  action: "confirmEmail"
+
+email-waiting-validation:
+  controller: "Front"
+  action: "emailWaitingValidation"
+
+login:
+  controller: "Security"
+  action: "login"
+
+deconnexion:
+  controller: "Security"
+  action: "logout"
+
+admin:
+  controller: Backoffice
+  action: index
+  role: [admin, editor]
+
+admin/users:
+  controller: Backoffice
+  action: manageUsers
+  role: [admin, editor]
+
+admin/edituser:
+  controller: Backoffice
+  action: editUser
+  role: [admin, editor]
+
+admin/updateuser:
+  controller: Backoffice
+  action: updateUser
+  role: [admin, editor]
+
+admin/deleteuser:
+  controller: Backoffice
+  action: deleteUser
+  role: [admin, editor]
+
+admin/pages:
+  controller: Backoffice
+  action: managePages
+
+admin/editpage:
+  controller: Backoffice
+  action: editPage
+
+admin/updatepage:
+  controller: Backoffice
+  action: updatePage
+
+admin/deletepage:
+  controller: Backoffice
+  action: deletePage
+
+admin/recipes:
+  controller: Backoffice
+  action: manageRecipes
+
+admin/editrecipe:
+  controller: Backoffice
+  action: editRecipe
+
+admin/updaterecipe:
+  controller: Backoffice
+  action: updateRecipe
+
+admin/deleterecipe:
+  controller: Backoffice
+  action: deleteRecipe
+
+admin/categories:
+  controller: Backoffice
+  action: manageCategories
+
+admin/editcategorie:
+  controller: Backoffice
+  action: editCategorie
+
+admin/updatecategorie:
+  controller: Backoffice
+  action: updateCategorie
+
+admin/deletecategorie:
+  controller: Backoffice
+  action: deleteCategorie
+
+admin/comments:
+  controller: Backoffice
+  action: manageComments
+
+admin/editcomment:
+  controller: Backoffice
+  action: editComment
+
+admin/updatecomment:
+  controller: Backoffice
+  action: updateComment
+
+admin/deletecomment:
+  controller: Backoffice
+  action: deleteComment
+
+admin/ingredients:
+  controller: Backoffice
+  action: manageIngredients
+
+admin/editingredient:
+  controller: Backoffice
+  action: editIngredient
+
+admin/updateingredient:
+  controller: Backoffice
+  action: updateIngredient
+
+admin/deleteingredient:
+  controller: Backoffice
+  action: deleteIngredient
+
+admin/medias:
+  controller: Backoffice
+  action: manageMedias
+
+admin/editmedia:
+  controller: Backoffice
+  action: editMedia
+
+admin/updatemedia:
+  controller: Backoffice
+  action: updateMedia
+
+admin/deletemedia:
+  controller: Backoffice
+  action: deleteMedia
+
+admin/reservations:
+  controller: Backoffice
+  action: manageReservations
+
+admin/editreservation:
+  controller: Backoffice
+  action: editReservation
+
+admin/updatereservation:
+  controller: Backoffice
+  action: updateReservation
+
+admin/deletereservation:
+  controller: Backoffice
+  action: deleteReservation
+
+admin/settings:
+  controller: Backoffice
+  action: manageSettings
+
+admin/editsetting:
+  controller: Backoffice
+  action: editSetting
+
+admin/updatesetting:
+  controller: Backoffice
+  action: updateSetting
+
+admin/deletesetting:
+  controller: Backoffice
+  action: deleteSetting

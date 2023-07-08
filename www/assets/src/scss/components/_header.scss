@@ -1,0 +1,30 @@
+.back {
+  display: flex;
+}
+
+.back nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.back nav ul li {
+  margin: 10px 0;
+}
+
+.back nav ul li a {
+  text-decoration: none;
+  color: #333;
+  display: block;
+  padding: 5px;
+}
+
+.back header {
+  flex-basis: 200px; /* Adjust the width as needed */
+  background-color: var(--primary);
+}
+
+.back main {
+  flex-grow: 1;
+  padding: 20px;
+  background-color: var(--secondary); /* Add a background color for visual clarity */
+}

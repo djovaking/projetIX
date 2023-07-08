@@ -1,0 +1,18 @@
+body {
+  font-family: $font_raleway;
+}
+
+h1 {
+  font-size: rem(24);
+  font-family: $font_radley;
+}
+
+h2 {
+  font-size: rem(16);
+  font-family: $font_radley;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+}

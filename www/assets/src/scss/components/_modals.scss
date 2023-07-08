@@ -1,0 +1,68 @@
+@import "../partials/variables";
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-content {
+  max-width: 600px;
+  background-color: $white;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.modal-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: $dark-green;
+}
+
+.modal-close {
+  cursor: pointer;
+  color: $dark-green;
+  transition: color 0.3s ease-in-out;
+
+  &:hover {
+    color: $brown;
+  }
+}
+
+.modal-body {
+  margin-bottom: 1rem;
+  color: $dark-green;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modal-button {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  background-color: $pastel-green;
+  color: $white;
+  text-decoration: none;
+  transition: background-color 0.3s ease-in-out;
+
+  &:hover {
+    background-color: $brown;
+  }
+}

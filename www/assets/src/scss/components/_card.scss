@@ -1,0 +1,54 @@
+@import "../partials/variables";
+
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background-color: $white;
+}
+
+.card-header {
+  padding: 1rem;
+  background-color: $beige;
+  border-bottom: 1px solid $grey;
+}
+
+.card-body {
+  padding: 1rem;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: $dark-green;
+}
+
+.card-text {
+  margin-bottom: 1rem;
+  color: $dark-green;
+}
+
+.card-footer {
+  padding: 1rem;
+  background-color: $beige;
+  border-top: 1px solid $grey;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.card-button {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  background-color: $pastel-green;
+  color: $white;
+  text-decoration: none;
+  transition: background-color 0.3s ease-in-out;
+
+  &:hover {
+    background-color: $brown;
+  }
+}

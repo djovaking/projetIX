@@ -1,0 +1,30 @@
+@import "../partials/variables";
+.banner {
+  background-color: $pastel-green;
+  color: $white;
+  padding: 1rem;
+  text-align: center;
+
+  h2 {
+    font-size: 24px;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    background-color: $dark-green;
+    color: $white;
+    text-decoration: none;
+    transition: background-color 0.3s ease-in-out;
+
+    &:hover {
+      background-color: $brown;
+    }
+  }
+}

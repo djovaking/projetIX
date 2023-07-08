@@ -1,0 +1,38 @@
+@import "../partials/variables";
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 16px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+
+  &.btn-primary {
+    background-color: $pastel-green;
+    color: white;
+
+    &:hover {
+      background-color: $dark-green;
+    }
+  }
+
+  &.btn-secondary {
+    background-color: $beige;
+    color: $dark-green;
+
+    &:hover {
+      background-color: $brown;
+      color: white;
+    }
+  }
+
+  &.btn-tertiary {
+    background-color: $orange;
+    color: white;
+
+    &:hover {
+      background-color: $brown;
+    }
+  }
+}
