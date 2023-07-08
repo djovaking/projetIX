@@ -2,6 +2,7 @@
     <p>Aucune catégorie n'a été trouvée.</p>
 <?php else : ?>
     <table>
+        <h1>Categorie Management</h1>
         <thead>
             <tr>
                 <?php foreach (array_keys($categories[0]) as $column) : ?>

@@ -2,6 +2,7 @@
     <p>Aucun commentaire n'a été trouvé.</p>
 <?php else : ?>
     <table>
+        <h1>Comment Management</h1>
         <thead>
             <tr>
                 <?php foreach (array_keys($comments[0]) as $column) : ?>

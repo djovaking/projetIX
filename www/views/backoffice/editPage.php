@@ -18,8 +18,8 @@
         <input type="text" name="identifier" value="<?php echo $_GET['identifier']; ?>">
     </div>
     <button type="submit">Update</button>
-</form>
-<form method="POST" action="deletePage">
-    <input type="hidden" name="pageId" value="<?php echo $_GET['pageId']; ?>">
-    <button type="submit" onclick="return confirm('Are you sure you want to delete this page?')">Supprimer la page</button>
+    <form method="POST" action="deletePage">
+        <input type="hidden" name="pageId" value="<?php echo $_GET['pageId']; ?>">
+        <button type="submit" onclick="return confirm('Are you sure you want to delete this page?')">Supprimer la page</button>
+    </form>
 </form>

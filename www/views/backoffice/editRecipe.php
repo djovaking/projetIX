@@ -30,8 +30,8 @@
         <input type="text" name="identifier" value="<?php echo $_GET['identifier']; ?>">
     </div>
     <button type="submit">Update</button>
-</form>
-<form method="POST" action="deleteRecipe">
-    <input type="hidden" name="recipeId" value="<?php echo $_GET['recipeId']; ?>">
-    <button type="submit" onclick="return confirm('Are you sure you want to delete this recipe?')">Supprimer la recette</button>
+    <form method="POST" action="deleteRecipe">
+        <input type="hidden" name="recipeId" value="<?php echo $_GET['recipeId']; ?>">
+        <button type="submit" onclick="return confirm('Are you sure you want to delete this recipe?')">Supprimer la recette</button>
+    </form>
 </form>

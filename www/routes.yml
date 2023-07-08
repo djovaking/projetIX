@@ -60,7 +60,7 @@ admin/updateuser:
 
 admin/deleteuser:
   controller: Backoffice
-  action: deleteuser
+  action: deleteUser
   role: [admin, editor]
 
 admin/pages:
@@ -174,3 +174,19 @@ admin/updatereservation:
 admin/deletereservation:
   controller: Backoffice
   action: deleteReservation
+
+admin/settings:
+  controller: Backoffice
+  action: manageSettings
+
+admin/editsetting:
+  controller: Backoffice
+  action: editSetting
+
+admin/updatesetting:
+  controller: Backoffice
+  action: updateSetting
+
+admin/deletesetting:
+  controller: Backoffice
+  action: deleteSetting
