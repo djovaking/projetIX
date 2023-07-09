@@ -75,11 +75,11 @@ final class Backoffice
             $user = new User();
 
             // Set the user object's properties with form data
-            $user->setId($userId);
-            $user->setFirstname($_POST['firstame']);
-            $user->setLastname($_POST['lastname']);
-            $user->setEmail($_POST['email']);
-            $user->setRole($_POST['role']);
+            $user->setId(htmlspecialchars(trim($userId)));
+            $user->setFirstname(htmlspecialchars(trim($_POST['firstame'])));
+            $user->setLastname(htmlspecialchars(trim($_POST['lastname'])));
+            $user->setEmail(htmlspecialchars(trim($_POST['email'])));
+            $user->setRole(htmlspecialchars(trim($_POST['role'])));
 
             // Call the save() method to update the user object in the database
             $user->update();
@@ -143,13 +143,13 @@ final class Backoffice
             $recipe = new Recipe();
 
             $recipeName = $_POST['name'];
-            $recipe->setName($_POST['name']);
-            $recipe->setTimePreparation($_POST['time_preparation']);
-            $recipe->setDifficulty($_POST['difficulty']);
-            $recipe->setPreparation($_POST['preparation']);
-            $recipe->setSlug(slugify($recipeName));
+            $recipe->setName(htmlspecialchars(trim($_POST['name'])));
+            $recipe->setTimePreparation(htmlspecialchars(trim($_POST['time_preparation'])));
+            $recipe->setDifficulty(htmlspecialchars(trim($_POST['difficulty'])));
+            $recipe->setPreparation(htmlspecialchars(trim($_POST['preparation'])));
+            $recipe->setSlug(htmlspecialchars(trim(slugify($recipeName))));
             $slug = slugify($recipeName);
-            $recipe->setIdentifier(generateRandomString(18)); //generate a 36 uuid characters in hexadecimal
+            $recipe->setIdentifier(htmlspecialchars(trim(generateRandomString(18)))); //generate a 36 uuid characters in hexadecimal
             // Verification
             if (Recipe::getBySlug($slug)) {
                 echo "Recipe already exists";
@@ -181,10 +181,10 @@ final class Backoffice
             // Create a new Page object
             $page = new Page();
             // Set the page object's properties with form data
-            $page->setId($pageId);
-            $page->setName($_POST['name']);
-            $page->setActive($_POST['active']);
-            $page->setIdentifier($_POST['identifier']);
+            $page->setId(htmlspecialchars(trim($pageId)));
+            $page->setName(htmlspecialchars(trim($_POST['name'])));
+            $page->setActive(htmlspecialchars(trim($_POST['active'])));
+            $page->setIdentifier(htmlspecialchars(trim($_POST['identifier'])));
             // Call the update() method to update the page object in the database
             $page->update();
             // Redirect to a success page or display a success message
@@ -238,11 +238,11 @@ final class Backoffice
             // Create a new Recipe object
             $recipe = new Recipe();
             // Set the recipe object's properties with form data
-            $recipe->setId($recipeId);
-            $recipe->setName($_POST['name']);
-            $recipe->setTimePreparation($_POST['time_preparation']);
-            $recipe->setDifficulty($_POST['difficulty']);
-            $recipe->setPreparation($_POST['preparation']);
+            $recipe->setId(htmlspecialchars(trim($recipeId)));
+            $recipe->setName(htmlspecialchars(trim($_POST['name'])));
+            $recipe->setTimePreparation(htmlspecialchars(trim($_POST['time_preparation'])));
+            $recipe->setDifficulty(htmlspecialchars(trim($_POST['difficulty'])));
+            $recipe->setPreparation(htmlspecialchars(trim($_POST['preparation'])));
             // Call the update() method to update the recipe object in the database
             $recipe->update();
             // Redirect to a success page or display a success message
@@ -296,8 +296,8 @@ final class Backoffice
             // Create a new Categorie object
             $categorie = new Categorie();
             // Set the categorie object's properties with form data
-            $categorie->setId($categorieId);
-            $categorie->setName($_POST['name']);
+            $categorie->setId(htmlspecialchars(trim($categorieId)));
+            $categorie->setName(htmlspecialchars(trim($_POST['name'])));
             // Call the update() method to update the categorie object in the database
             $categorie->update();
             // Redirect to a success page or display a success message
@@ -351,8 +351,8 @@ final class Backoffice
             // Create a new Comment object
             $comment = new Comment();
             // Set the comment object's properties with form data
-            $comment->setId($commentId);
-            $comment->setText($_POST['text']);
+            $comment->setId(htmlspecialchars(trim($commentId)));
+            $comment->setText(htmlspecialchars(trim($_POST['text'])));
             // Call the update() method to update the comment object in the database
             $comment->update();
             // Redirect to a success page or display a success message
@@ -406,8 +406,8 @@ final class Backoffice
             // Create a new Ingredient object
             $ingredient = new Ingredient();
             // Set the ingredient object's properties with form data
-            $ingredient->setId($ingredientId);
-            $ingredient->setName($_POST['name']);
+            $ingredient->setId(htmlspecialchars(trim($ingredientId)));
+            $ingredient->setName(htmlspecialchars(trim($_POST['name'])));
             // Call the update() method to update the ingredient object in the database
             $ingredient->update();
             // Redirect to a success page or display a success message
@@ -461,9 +461,9 @@ final class Backoffice
             // Create a new Media object
             $media = new Media();
             // Set the media object's properties with form data
-            $media->setId($mediaId);
-            $media->setName($_POST['name']);
-            $media->setDescription($_POST['description']);
+            $media->setId(htmlspecialchars($mediaId));
+            $media->setName(htmlspecialchars($_POST['name']));
+            $media->setDescription(htmlspecialchars($_POST['description']));
             // Call the update() method to update the media object in the database
             $media->update();
             // Redirect to a success page or display a success message
@@ -517,13 +517,13 @@ final class Backoffice
             // Create a new Reservation object
             $reservation = new Reservation();
             // Set the reservation object's properties with form data
-            $reservation->setId($reservationId);
-            $reservation->setDate($_POST['date']);
-            $reservation->setTime($_POST['time']);
-            $reservation->setNbPerson($_POST['nb_person']);
-            $reservation->setFirstname($_POST['firstname']);
-            $reservation->setLastname($_POST['lastname']);
-            $reservation->setPhone($_POST['phone']);
+            $reservation->setId(htmlspecialchars(trim($reservationId)));
+            $reservation->setDate(htmlspecialchars(trim($_POST['date'])));
+            $reservation->setTime(htmlspecialchars(trim($_POST['time'])));
+            $reservation->setNbPerson(htmlspecialchars(trim($_POST['nb_person'])));
+            $reservation->setFirstname(htmlspecialchars(trim($_POST['firstname'])));
+            $reservation->setLastname(htmlspecialchars(trim($_POST['lastname'])));
+            $reservation->setPhone(htmlspecialchars(trim($_POST['phone'])));
             // Call the update() method to update the reservation object in the database
             $reservation->update();
             // Redirect to a success page or display a success message
@@ -577,9 +577,9 @@ final class Backoffice
             // Create a new Setting object
             $setting = new Setting();
             // Set the setting object's properties with form data
-            $setting->setId($settingId);
-            $setting->setColor($_POST['color']);
-            $setting->setFont($_POST['font']);
+            $setting->setId(htmlspecialchars(trim($settingId)));
+            $setting->setColor(htmlspecialchars(trim($_POST['color'])));
+            $setting->setFont(htmlspecialchars(trim($_POST['font'])));
             // Call the update() method to update the setting object in the database
             $setting->update();
             // Redirect to a success page or display a success message
