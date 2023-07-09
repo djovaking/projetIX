@@ -1,0 +1,22 @@
+@import "../partials/variables";
+.about-us {
+  background-color: $light-green;
+  padding: 3rem;
+}
+
+.about-us-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.about-us h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.about-us p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}

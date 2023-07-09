@@ -277,6 +277,19 @@ footer .container ul li a {
     max-width: 100%;
   }
 }
+/* Couleurs */
+:root {
+  --primary: #87a397;
+  --secondary: #fbeadf;
+  --tertiary: #f6aa8d;
+  --light-green: #e8f6f3;
+  --dark-green: #00727d;
+  --brown: #e0b99b;
+  --grey: #b7b7ad;
+  --white: #fff;
+  --black: #000;
+}
+
 .back {
   display: flex;
 }
@@ -292,7 +305,7 @@ footer .container ul li a {
 
 .back nav ul li a {
   text-decoration: none;
-  color: #333;
+  color: #333 !important;
   display: block;
   padding: 5px;
 }
@@ -306,6 +319,55 @@ footer .container ul li a {
   flex-grow: 1;
   padding: 20px;
   background-color: var(--secondary); /* Add a background color for visual clarity */
+}
+
+/* Styling for the header */
+header {
+  background-color: #87a397;
+  padding: 1rem;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+nav ul li {
+  margin-right: 1rem;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+nav ul li a:hover {
+  color: #e0b99b;
+}
+
+/* Styling for the admin link */
+nav ul li.admin-link a {
+  color: #f6aa8d;
+}
+
+nav ul li.admin-link a:hover {
+  color: #00727d;
+}
+
+/* Styling for the login and registration links */
+nav ul li.login-link a,
+nav ul li.register-link a {
+  color: #b7b7ad;
+}
+
+nav ul li.login-link a:hover,
+nav ul li.register-link a:hover {
+  color: #00727d;
 }
 
 .container-login {
@@ -525,6 +587,85 @@ th {
   margin-left: 10px;
 }
 
+/* Couleurs */
+:root {
+  --primary: #87a397;
+  --secondary: #fbeadf;
+  --tertiary: #f6aa8d;
+  --light-green: #e8f6f3;
+  --dark-green: #00727d;
+  --brown: #e0b99b;
+  --grey: #b7b7ad;
+  --white: #fff;
+  --black: #000;
+}
+
+.hero-banner {
+  background-image: url("../images/jimmy-dean-Yn0l7uwBrpw-unsplash.jpg");
+  color: #fff;
+  padding: 3rem;
+  text-align: center;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.hero-description {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.hero-button {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  background-color: #87a397;
+  color: #00727d;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+.hero-button:hover {
+  background-color: #e0b99b;
+  color: #fff;
+}
+
+/* Couleurs */
+:root {
+  --primary: #87a397;
+  --secondary: #fbeadf;
+  --tertiary: #f6aa8d;
+  --light-green: #e8f6f3;
+  --dark-green: #00727d;
+  --brown: #e0b99b;
+  --grey: #b7b7ad;
+  --white: #fff;
+  --black: #000;
+}
+
+.about-us {
+  background-color: #e8f6f3;
+  padding: 3rem;
+}
+
+.about-us-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.about-us h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.about-us p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
 :root {
   --raleway: font_raleway;
   --radley: Radley, sans-serif;
@@ -532,6 +673,24 @@ th {
 
 /* Conversion px en rem */
 /* Mixin cover-bg */
+/* Couleurs */
+:root {
+  --primary: #87a397;
+  --secondary: #fbeadf;
+  --tertiary: #f6aa8d;
+  --light-green: #e8f6f3;
+  --dark-green: #00727d;
+  --brown: #e0b99b;
+  --grey: #b7b7ad;
+  --white: #fff;
+  --black: #000;
+}
+
+body,
+html {
+  margin: 0;
+}
+
 body {
   font-family: "Raleway", sans-serif;
 }

@@ -1,3 +1,9 @@
+@import "_variables";
+body,
+html {
+  margin: 0;
+}
+
 body {
   font-family: $font_raleway;
 }

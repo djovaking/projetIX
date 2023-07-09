@@ -1,3 +1,4 @@
+@import "../partials/variables";
 .back {
   display: flex;
 }
@@ -13,7 +14,7 @@
 
 .back nav ul li a {
   text-decoration: none;
-  color: #333;
+  color: #333 !important;
   display: block;
   padding: 5px;
 }
@@ -26,5 +27,55 @@
 .back main {
   flex-grow: 1;
   padding: 20px;
-  background-color: var(--secondary); /* Add a background color for visual clarity */
+  background-color: var(
+    --secondary
+  ); /* Add a background color for visual clarity */
+}
+/* Styling for the header */
+header {
+  background-color: $pastel-green;
+  padding: 1rem;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+nav ul li {
+  margin-right: 1rem;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+nav ul li a:hover {
+  color: $brown;
+}
+
+/* Styling for the admin link */
+nav ul li.admin-link a {
+  color: $orange;
+}
+
+nav ul li.admin-link a:hover {
+  color: $dark-green;
+}
+
+/* Styling for the login and registration links */
+nav ul li.login-link a,
+nav ul li.register-link a {
+  color: $grey;
+}
+
+nav ul li.login-link a:hover,
+nav ul li.register-link a:hover {
+  color: $dark-green;
 }

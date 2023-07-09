@@ -1,0 +1,32 @@
+@import "../partials/variables";
+.hero-banner {
+  background-image: url("../images/jimmy-dean-Yn0l7uwBrpw-unsplash.jpg");
+  color: $white;
+  padding: 3rem;
+  text-align: center;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.hero-description {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.hero-button {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  background-color: $pastel-green;
+  color: $dark-green;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+
+  &:hover {
+    background-color: $brown;
+    color: $white;
+  }
+}
