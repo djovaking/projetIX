@@ -312,7 +312,7 @@ footer .container ul li a {
 
 .navbar {
   background-color: var(--tertiary);
-  color: var(--black);
+  color: var(--grey);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -336,7 +336,7 @@ footer .container ul li a {
 }
 
 .navbar-menu a {
-  color: var(--black);
+  color: var(--dark-green);
   text-decoration: none;
   margin-left: 10px;
 }
