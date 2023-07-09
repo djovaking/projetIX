@@ -4,9 +4,10 @@ namespace App\models;
 
 use App\core\ORM;
 
-class Recipe extends ORM {
+class Recipe extends ORM
+{
 
-    protected $id;
+    protected $id = -1;
     protected $name;
     protected $time_preparation;
     protected $difficulty;
@@ -14,12 +15,13 @@ class Recipe extends ORM {
     protected $created_at;
     protected $updated_at;
     protected $slug;
-    protected $active;
+    protected $active = 0;
     protected $identifier;
-    protected $nb_view;
+    protected $nb_view = 0;
 
     public function __construct()
     {
+        parent::__construct();
         $this->setCreatedAt(time());
         $this->setUpdatedAt(time());
     }
@@ -195,5 +197,10 @@ class Recipe extends ORM {
     public function setUpdatedAt(Int $updated_at): void
     {
         $this->updated_at = date("Y-m-d h:i:s", $updated_at);
+    }
+
+    public static function getTable(): string
+    {
+        return 'fp_recipe';
     }
 }

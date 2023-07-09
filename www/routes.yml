@@ -87,6 +87,10 @@ admin/recipes:
   controller: Backoffice
   action: manageRecipes
 
+admin/createrecipe:
+  controller: Backoffice
+  action: createRecipe
+
 admin/editrecipe:
   controller: Backoffice
   action: editRecipe

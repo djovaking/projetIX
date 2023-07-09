@@ -22,8 +22,8 @@
                             <td><?php echo $value; ?></td>
                         <?php endif; ?>
                     <?php endforeach; ?>
-                        <td><a href="editPage?pageId=<?php echo $page["id"]; ?>&name=<?php echo $page["name"]; ?>&active=<?php echo $page["active"]; ?>&identifier=<?php echo $page["identifier"]; ?>">Edit</a></td>
-                        <td><a href="deletePage?pageId=<?php echo $page["id"]; ?>">Delete</a></td>               
+                    <td><a href="editPage?pageId=<?php echo $page["id"]; ?>&name=<?php echo $page["name"]; ?>&active=<?php echo $page["active"]; ?>&identifier=<?php echo $page["identifier"]; ?>">Edit</a></td>
+                    <td><a href="deletePage?pageId=<?php echo $page["id"]; ?>">Delete</a></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>

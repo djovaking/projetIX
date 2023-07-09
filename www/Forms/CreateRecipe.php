@@ -4,7 +4,7 @@ namespace App\Forms;
 
 use App\core\Validator;
 
-class EditRecipe extends Validator
+class CreateRecipe extends Validator
 {
     public static $instance;
     public $config;
@@ -15,10 +15,10 @@ class EditRecipe extends Validator
         $this->config = [
             "config" => [
                 "method" => "POST",
-                "action" => "updaterecipe.php",
+                "action" => "createrecipe",
                 "class" => "form",
-                "id" => "form-edit-recipe",
-                "submit" => "Update",
+                "id" => "form-create-recipe",
+                "submit" => "Create",
                 "cancel" => "Cancel"
             ],
             "inputs" => [
@@ -60,10 +60,10 @@ class EditRecipe extends Validator
         parent::__construct();
     }
 
-    public static function getInstance(): EditRecipe
+    public static function getInstance(): CreateRecipe
     {
         if (!self::$instance) {
-            self::$instance = new EditRecipe();
+            self::$instance = new CreateRecipe();
         }
 
         return self::$instance;

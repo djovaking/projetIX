@@ -42,30 +42,35 @@ abstract class ORM
         $objet = $queryPrepared->fetch();
         return $objet;
     }
+
+
     public function save(): void
     {
         $columns = get_object_vars($this);
         $columnsToDelete = get_class_vars(get_class());
         $columns = array_diff_key($columns, $columnsToDelete);
 
+
         if ($columns["id"] == -1) {
             unset($columns["id"]);
             $queryPrepared = $this->pdo->prepare("INSERT INTO " . $this->table . " ( " . implode(", ", array_keys($columns)) . " ) " .
                 " VALUES (:" . implode(",:", array_keys($columns)) . ")");
         } else {
-            print_r($columns);
             unset($columns["id"]);
             $sqlUpdate = [];
             foreach ($columns as $key => $value) {
                 $sqlUpdate[] = $key . "=:" . $key;
             }
 
-            $queryPrepared = $this->pdo->prepare("UPDATE " . $this->table .
+            $sql = $this->pdo->prepare("UPDATE " . $this->table .
                 " SET " . implode(",", $sqlUpdate) .
                 " WHERE id=" . $this->getId());
+            $queryPrepared = $this->pdo->prepare($sql);
         }
         $queryPrepared->execute($columns);
     }
+
+
     public function update(): void
     {
         $connectDb = ConnectDB::getInstance();
@@ -109,9 +114,23 @@ abstract class ORM
             $user->user_role = $user->user_role;
         }
 
-
         return $user;
     }
+
+    public static function getBySlug($slug)
+    {
+        // Connexion à la base de données
+        $connectDb = ConnectDB::getInstance();
+
+        // Requête pour vérifier si le slug existe dans la table Recipe
+        $queryPrepared = $connectDb->getPdo()->prepare("SELECT slug FROM " . DB_PREFIX . "recipe WHERE slug = :slug");
+        $queryPrepared->execute(['slug' => $slug]);
+        $queryPrepared->setFetchMode(\PDO::FETCH_CLASS, get_called_class());
+        $recipe = $queryPrepared->fetch();
+
+        return $recipe;
+    }
+
     public static function deleteBy($column, $value): void
     {
         $connectDb = ConnectDB::getInstance();

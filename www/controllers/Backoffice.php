@@ -2,9 +2,12 @@
 
 namespace App\controllers;
 
+require_once __DIR__ . '/../services/random_function.php';
+
 use App\core\View;
 use App\core\SessionManager;
 use App\core\ConnectDB;
+use App\Forms\CreateRecipe;
 use App\models\Categorie;
 use App\models\User;
 use App\models\Page;
@@ -14,6 +17,12 @@ use App\models\Ingredient;
 use App\models\Media;
 use App\models\Reservation;
 use App\models\Setting;
+
+use function App\services\slugify;
+use function App\services\generateRandomString;
+
+// require __DIR__ . "../services/slugify.php";
+require_once __DIR__ . '/../services/slugify.php';
 
 final class Backoffice
 {
@@ -89,19 +98,19 @@ final class Backoffice
         User::deleteBy('id', $userId);
 
         User::dropFKConstraint('fp_reservation', 'fp_user_id');
-        User::deleteDatasInTheFKTable('fp_reservation','fp_user_id',$userId);
+        User::deleteDatasInTheFKTable('fp_reservation', 'fp_user_id', $userId);
 
         User::dropFKConstraint('fp_page', 'fp_user_id');
-        User::deleteDatasInTheFKTable('fp_page','fp_user_id',$userId);
+        User::deleteDatasInTheFKTable('fp_page', 'fp_user_id', $userId);
 
         User::dropFKConstraint('fp_comment', 'fp_user_id');
-        User::deleteDatasInTheFKTable('fp_comment','fp_user_id',$userId);
+        User::deleteDatasInTheFKTable('fp_comment', 'fp_user_id', $userId);
 
         User::deleteBy('id', $userId);
 
-        User::restoreFKConstraint('fp_reservation','fp_user_id','fp_user_id','fp_user');
-        User::restoreFKConstraint('fp_page','fp_user_id','fp_user_id','fp_user');
-        User::restoreFKConstraint('fp_comment','fp_user_id','fp_user_id','fp_user');
+        User::restoreFKConstraint('fp_reservation', 'fp_user_id', 'fp_user_id', 'fp_user');
+        User::restoreFKConstraint('fp_page', 'fp_user_id', 'fp_user_id', 'fp_user');
+        User::restoreFKConstraint('fp_comment', 'fp_user_id', 'fp_user_id', 'fp_user');
 
         // Redirect 
         header("Location: users");
@@ -119,6 +128,38 @@ final class Backoffice
         $view = new View("backoffice/pages", "back");
         $view->assign('pages', $pages);
     }
+
+    public function createRecipe()
+    { 
+        $form = new CreateRecipe();
+
+        $view = new View("backoffice/addRecipe", "back");
+        $view->assign('form', $form->getConfig());
+        $view->assign('formErrors', $form->listOfErrors);
+
+
+        if ($form->isSubmited() && $form->isValid()) {
+            // Create a new Recipe object
+            $recipe = new Recipe();
+
+            $recipeName = $_POST['name'];
+            $recipe->setName($_POST['name']);
+            $recipe->setTimePreparation($_POST['time_preparation']);
+            $recipe->setDifficulty($_POST['difficulty']);
+            $recipe->setPreparation($_POST['preparation']);
+            $recipe->setSlug(slugify($recipeName));
+            $slug = slugify($recipeName);
+            $recipe->setIdentifier(generateRandomString(18)); //generate a 36 uuid characters in hexadecimal
+            // Verification
+            if (Recipe::getBySlug($slug)) {
+                echo "Recipe already exists";
+            } else {
+
+                $recipe->save();
+            }           
+        }
+    }
+
 
     public function editPage()
     {
@@ -389,7 +430,7 @@ final class Backoffice
     }
 
     public function manageMedias()
-     {
+    {
         // Create an instance of the ConnectDB class
         $db = ConnectDB::getInstance();
 
@@ -445,7 +486,7 @@ final class Backoffice
     }
 
     public function manageReservations()
-     {
+    {
         // Create an instance of the ConnectDB class
         $db = ConnectDB::getInstance();
 
@@ -505,7 +546,7 @@ final class Backoffice
     }
 
     public function manageSettings()
-     {
+    {
         // Create an instance of the ConnectDB class
         $db = ConnectDB::getInstance();
 
