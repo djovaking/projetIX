@@ -2,9 +2,12 @@
 
 namespace App\controllers;
 
+require_once __DIR__ . '/../services/random_function.php';
+
 use App\core\View;
 use App\core\SessionManager;
 use App\core\ConnectDB;
+use App\Forms\CreateRecipe;
 use App\models\Categorie;
 use App\models\User;
 use App\models\Page;
@@ -14,6 +17,12 @@ use App\models\Ingredient;
 use App\models\Media;
 use App\models\Reservation;
 use App\models\Setting;
+
+use function App\services\slugify;
+use function App\services\generateRandomString;
+
+// require __DIR__ . "../services/slugify.php";
+require_once __DIR__ . '/../services/slugify.php';
 
 final class Backoffice
 {
@@ -89,19 +98,19 @@ final class Backoffice
         User::deleteBy('id', $userId);
 
         User::dropFKConstraint('fp_reservation', 'fp_user_id');
-        User::deleteDatasInTheFKTable('fp_reservation','fp_user_id',$userId);
+        User::deleteDatasInTheFKTable('fp_reservation', 'fp_user_id', $userId);
 
         User::dropFKConstraint('fp_page', 'fp_user_id');
-        User::deleteDatasInTheFKTable('fp_page','fp_user_id',$userId);
+        User::deleteDatasInTheFKTable('fp_page', 'fp_user_id', $userId);
 
         User::dropFKConstraint('fp_comment', 'fp_user_id');
-        User::deleteDatasInTheFKTable('fp_comment','fp_user_id',$userId);
+        User::deleteDatasInTheFKTable('fp_comment', 'fp_user_id', $userId);
 
         User::deleteBy('id', $userId);
 
-        User::restoreFKConstraint('fp_reservation','fp_user_id','fp_user_id','fp_user');
-        User::restoreFKConstraint('fp_page','fp_user_id','fp_user_id','fp_user');
-        User::restoreFKConstraint('fp_comment','fp_user_id','fp_user_id','fp_user');
+        User::restoreFKConstraint('fp_reservation', 'fp_user_id', 'fp_user_id', 'fp_user');
+        User::restoreFKConstraint('fp_page', 'fp_user_id', 'fp_user_id', 'fp_user');
+        User::restoreFKConstraint('fp_comment', 'fp_user_id', 'fp_user_id', 'fp_user');
 
         // Redirect 
         header("Location: users");
@@ -120,48 +129,44 @@ final class Backoffice
         $view->assign('pages', $pages);
     }
 
-    public function addPage()
-    {
-        // Check if form data is submitted
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Create a new Page object
-            $page = new Page();
+    public function createRecipe()
+    { {
+            $form = new CreateRecipe();
 
-            $view = new View("", "");
-            $view->assign('form', $page->getConfig());
+            $view = new View("backoffice/addRecipe", "back");
+            $view->assign('form', $form->getConfig());
             $view->assign('formErrors', $form->listOfErrors);
-            
-            // Set the page object's properties with form data
-            $page->setName($_POST['name']);
-            // Call the save() method to save the page object to the database
-            $page->save();
 
-            // Generate the route definition
-            $routeDefinition = "- route: /{identifier}\n";
-            $routeDefinition .= "  controller: PageController\n";
-            $routeDefinition .= "  action: showPage\n";
-            $routeDefinition .= "  methods: [GET]\n";
-            $routeDefinition .= "  defaults: { identifier: '{$page->getIdentifier()}' }\n";
 
-            // Get the existing routes from the YAML file
-            $routesYaml = file_get_contents('routes.yaml');
-            $routes = yaml_parse($routesYaml);
+            if ($form->isSubmited() && $form->isValid()) {
+                // Create a new User object
+                $recipe = new Recipe();
 
-            // Add the new route definition to the routes array
-            $routes[] = yaml_parse($routeDefinition);
+                $recipeName = $_POST['name'];
+                $recipe->setName($_POST['name']);
+                $recipe->setTimePreparation($_POST['time_preparation']);
+                $recipe->setDifficulty($_POST['difficulty']);
+                $recipe->setPreparation($_POST['preparation']);
+                $recipe->setSlug(slugify($recipeName));
+                $slug = slugify($recipeName);
+                $recipe->setIdentifier(generateRandomString(18)); //generate a 36 uuid characters in hexadecimal
 
-            // Convert the routes array back to YAML format
-            $newRoutesYaml = yaml_emit($routes);
 
-            // Save the updated routes YAML file
-            file_put_contents('routes.yaml', $newRoutesYaml);
 
-            // Redirect to a success page or display a success message
-            header("Location: pages");
-            exit;
-        } else {
-            // Display the form for adding a new page
-            $view = new View("backoffice/addPage", 'back');
+                var_dump($recipeName);
+                echo "<br>";
+                var_dump($slug);
+                echo "<br>";
+
+
+                // Verification
+                if (Recipe::getBySlug($slug)) {
+                    echo "Recipe already exists";
+                } else {
+
+                    $recipe->save();
+                }
+            }
         }
     }
 
@@ -435,7 +440,7 @@ final class Backoffice
     }
 
     public function manageMedias()
-     {
+    {
         // Create an instance of the ConnectDB class
         $db = ConnectDB::getInstance();
 
@@ -491,7 +496,7 @@ final class Backoffice
     }
 
     public function manageReservations()
-     {
+    {
         // Create an instance of the ConnectDB class
         $db = ConnectDB::getInstance();
 
@@ -551,7 +556,7 @@ final class Backoffice
     }
 
     public function manageSettings()
-     {
+    {
         // Create an instance of the ConnectDB class
         $db = ConnectDB::getInstance();
 

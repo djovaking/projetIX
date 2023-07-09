@@ -67,10 +67,6 @@ admin/pages:
   controller: Backoffice
   action: managePages
 
-admin/addpage:
-  controller: Backoffice
-  action: addPage
-
 admin/editpage:
   controller: Backoffice
   action: editPage
@@ -86,6 +82,10 @@ admin/deletepage:
 admin/recipes:
   controller: Backoffice
   action: manageRecipes
+
+admin/createrecipe:
+  controller: Backoffice
+  action: createRecipe
 
 admin/editrecipe:
   controller: Backoffice
