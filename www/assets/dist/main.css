@@ -730,6 +730,42 @@ th {
   opacity: 1;
 }
 
+.dropdown {
+  position: relative;
+}
+.dropdown .dropdown-toggle {
+  display: inline-block;
+  cursor: pointer;
+}
+.dropdown .dropdown-toggle:hover {
+  color: #00727d;
+}
+.dropdown .dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 10;
+  display: none;
+  min-width: 200px;
+  padding: 0.5rem;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.dropdown .dropdown-menu .dropdown-item {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: #00727d;
+  text-decoration: none;
+  transition: background-color 0.3s ease-in-out;
+}
+.dropdown .dropdown-menu .dropdown-item:hover {
+  background-color: #e8f6f3;
+}
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
 /* Conversion px en rem */
 /* Mixin cover-bg */
 body {

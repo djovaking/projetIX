@@ -1,0 +1,41 @@
+.dropdown {
+  position: relative;
+
+  .dropdown-toggle {
+    display: inline-block;
+    cursor: pointer;
+
+    &:hover {
+      color: $dark-green;
+    }
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 10;
+    display: none;
+    min-width: 200px;
+    padding: 0.5rem;
+    background-color: $white;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+    .dropdown-item {
+      display: block;
+      padding: 0.5rem 1rem;
+      color: $dark-green;
+      text-decoration: none;
+      transition: background-color 0.3s ease-in-out;
+
+      &:hover {
+        background-color: $light-green;
+      }
+    }
+  }
+
+  &:hover .dropdown-menu {
+    display: block;
+  }
+}
