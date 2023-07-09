@@ -109,15 +109,15 @@ final class Security
             $user = new User();
 
             // Set the user object's properties with form data
-            $user->setFirstName($_POST['firstname']);
-            $user->setLastName($_POST['lastname']);
-            $user->setEmail($_POST['email']);
-            $user->setPassword($_POST['password']);
-            $email = $_POST['email'];
-            $user->setIdentifier(generateRandomString(18)); //generate a 36 uuid characters in hexadecimal
+            $user->setFirstName(htmlspecialchars(trim($_POST['firstname'])));
+            $user->setLastName(htmlspecialchars(trim($_POST['lastname'])));
+            $user->setEmail(htmlspecialchars(trim($_POST['email'])));
+            $user->setPassword(htmlspecialchars(trim($_POST['password'])));
+            $email = htmlspecialchars(trim($_POST['email']));
+            $user->setIdentifier(htmlspecialchars(trim(generateRandomString(18)))); //generate a 36 uuid characters in hexadecimal
 
             $token = generateRandomString(18);
-            $user->setToken($token);
+            $user->setToken(htmlspecialchars($token));
             // Verification
             if (User::getByEmail($email)) {
                 echo "Email already registered";
