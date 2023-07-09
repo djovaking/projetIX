@@ -11,7 +11,7 @@ $sessionManager = SessionManager::getInstance();
         <div class="navbar">
 
             <div class="navbar-logo">
-                <a href="/"><img src="../assets/images/Logo.PNG" alt="Logo" class="header-logo"></a>
+                <a href="/"><img src="../assets/images/logo.png" alt="Logo" class="header-logo"></a>
             </div>
 
             <div class="navbar-menu">
