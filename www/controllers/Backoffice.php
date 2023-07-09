@@ -120,6 +120,52 @@ final class Backoffice
         $view->assign('pages', $pages);
     }
 
+    public function addPage()
+    {
+        // Check if form data is submitted
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Create a new Page object
+            $page = new Page();
+
+            $view = new View("", "");
+            $view->assign('form', $page->getConfig());
+            $view->assign('formErrors', $form->listOfErrors);
+            
+            // Set the page object's properties with form data
+            $page->setName($_POST['name']);
+            // Call the save() method to save the page object to the database
+            $page->save();
+
+            // Generate the route definition
+            $routeDefinition = "- route: /{identifier}\n";
+            $routeDefinition .= "  controller: PageController\n";
+            $routeDefinition .= "  action: showPage\n";
+            $routeDefinition .= "  methods: [GET]\n";
+            $routeDefinition .= "  defaults: { identifier: '{$page->getIdentifier()}' }\n";
+
+            // Get the existing routes from the YAML file
+            $routesYaml = file_get_contents('routes.yaml');
+            $routes = yaml_parse($routesYaml);
+
+            // Add the new route definition to the routes array
+            $routes[] = yaml_parse($routeDefinition);
+
+            // Convert the routes array back to YAML format
+            $newRoutesYaml = yaml_emit($routes);
+
+            // Save the updated routes YAML file
+            file_put_contents('routes.yaml', $newRoutesYaml);
+
+            // Redirect to a success page or display a success message
+            header("Location: pages");
+            exit;
+        } else {
+            // Display the form for adding a new page
+            $view = new View("backoffice/addPage", 'back');
+        }
+    }
+
+
     public function editPage()
     {
         $view = new View("backoffice/editPage", 'back');

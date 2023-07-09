@@ -67,6 +67,10 @@ admin/pages:
   controller: Backoffice
   action: managePages
 
+admin/addpage:
+  controller: Backoffice
+  action: addPage
+
 admin/editpage:
   controller: Backoffice
   action: editPage

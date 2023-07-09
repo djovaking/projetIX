@@ -3,6 +3,7 @@
 <?php else : ?>
     <table>
         <h1>Page Management</h1>
+        <a href="/addPage">Ajouter une page</a>
         <thead>
             <tr>
                 <?php foreach (array_keys($pages[0]) as $column) : ?>
