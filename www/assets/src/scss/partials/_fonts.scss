@@ -4,3 +4,8 @@
 
 $font_raleway: 'Raleway', sans-serif;
 $font_radley: 'Radley', sans-serif;
+
+:root {
+  --raleway:       #{font_raleway};
+  --radley:        #{$font_radley};
+}
