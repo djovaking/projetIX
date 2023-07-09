@@ -21,6 +21,7 @@ class Recipe extends ORM
 
     public function __construct()
     {
+        parent::__construct();
         $this->setCreatedAt(time());
         $this->setUpdatedAt(time());
     }
@@ -196,5 +197,10 @@ class Recipe extends ORM
     public function setUpdatedAt(Int $updated_at): void
     {
         $this->updated_at = date("Y-m-d h:i:s", $updated_at);
+    }
+
+    public static function getTable(): string
+    {
+        return 'fp_recipe';
     }
 }

@@ -50,27 +50,23 @@ abstract class ORM
         $columnsToDelete = get_class_vars(get_class());
         $columns = array_diff_key($columns, $columnsToDelete);
 
-        // var_dump($columns);
 
         if ($columns["id"] == -1) {
             unset($columns["id"]);
-            var_dump($this->table);
             $queryPrepared = $this->pdo->prepare("INSERT INTO " . $this->table . " ( " . implode(", ", array_keys($columns)) . " ) " .
                 " VALUES (:" . implode(",:", array_keys($columns)) . ")");
-            var_dump($queryPrepared);
         } else {
-            print_r($columns);
             unset($columns["id"]);
             $sqlUpdate = [];
             foreach ($columns as $key => $value) {
                 $sqlUpdate[] = $key . "=:" . $key;
             }
 
-            $queryPrepared = $this->pdo->prepare("UPDATE " . $this->table .
+            $sql = $this->pdo->prepare("UPDATE " . $this->table .
                 " SET " . implode(",", $sqlUpdate) .
                 " WHERE id=" . $this->getId());
+            $queryPrepared = $this->pdo->prepare($sql);
         }
-        var_dump($queryPrepared);
         $queryPrepared->execute($columns);
     }
 

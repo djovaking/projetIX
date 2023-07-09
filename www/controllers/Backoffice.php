@@ -130,43 +130,33 @@ final class Backoffice
     }
 
     public function createRecipe()
-    { {
-            $form = new CreateRecipe();
+    { 
+        $form = new CreateRecipe();
 
-            $view = new View("backoffice/addRecipe", "back");
-            $view->assign('form', $form->getConfig());
-            $view->assign('formErrors', $form->listOfErrors);
-
-
-            if ($form->isSubmited() && $form->isValid()) {
-                // Create a new User object
-                $recipe = new Recipe();
-
-                $recipeName = $_POST['name'];
-                $recipe->setName($_POST['name']);
-                $recipe->setTimePreparation($_POST['time_preparation']);
-                $recipe->setDifficulty($_POST['difficulty']);
-                $recipe->setPreparation($_POST['preparation']);
-                $recipe->setSlug(slugify($recipeName));
-                $slug = slugify($recipeName);
-                $recipe->setIdentifier(generateRandomString(18)); //generate a 36 uuid characters in hexadecimal
+        $view = new View("backoffice/addRecipe", "back");
+        $view->assign('form', $form->getConfig());
+        $view->assign('formErrors', $form->listOfErrors);
 
 
+        if ($form->isSubmited() && $form->isValid()) {
+            // Create a new Recipe object
+            $recipe = new Recipe();
 
-                var_dump($recipeName);
-                echo "<br>";
-                var_dump($slug);
-                echo "<br>";
+            $recipeName = $_POST['name'];
+            $recipe->setName($_POST['name']);
+            $recipe->setTimePreparation($_POST['time_preparation']);
+            $recipe->setDifficulty($_POST['difficulty']);
+            $recipe->setPreparation($_POST['preparation']);
+            $recipe->setSlug(slugify($recipeName));
+            $slug = slugify($recipeName);
+            $recipe->setIdentifier(generateRandomString(18)); //generate a 36 uuid characters in hexadecimal
+            // Verification
+            if (Recipe::getBySlug($slug)) {
+                echo "Recipe already exists";
+            } else {
 
-
-                // Verification
-                if (Recipe::getBySlug($slug)) {
-                    echo "Recipe already exists";
-                } else {
-
-                    $recipe->save();
-                }
-            }
+                $recipe->save();
+            }           
         }
     }
 

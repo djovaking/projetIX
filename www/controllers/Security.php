@@ -75,6 +75,13 @@ final class Security
                 // Rediriger l'utilisateur vers la page d'accueil ou une autre page sécurisée
                 // header('Location: /');
                 // exit;
+                // Redirect the user based on their role
+                if ($user->getUserRole() === 'admin') {
+                    header('Location: /admin');
+                } else {
+                    header('Location: /');
+                }
+                exit();
             } else {
                 // Authentication failed
                 echo "Connexion echouée";
@@ -111,8 +118,6 @@ final class Security
 
             $token = generateRandomString(18);
             $user->setToken($token);
-
-
             // Verification
             if (User::getByEmail($email)) {
                 echo "Email already registered";
