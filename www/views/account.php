@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Mon site MVC</title>
-    <meta name="description" content="mon super site en MVC from scratch">
+    <title>FoodPress</title>
+    <meta name="description" content="FoodPress">
 </head>
 
 <body>

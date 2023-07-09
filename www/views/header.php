@@ -6,21 +6,27 @@ $sessionManager = SessionManager::getInstance();
 
 ?>
 
-<header>
+<header class="header">
     <nav>
-        <ul>
-            <li><a href="/">Accueil</a></li>
-            <li><a href="/contact">Contact</a></li>
-            <?php $user = $sessionManager->getValue('user'); ?>
-            <?php if ($user && $user['user_role'] == 'admin') : ?>
-                <li><a href="/admin">Backoffice</a></li>
-            <?php endif; ?>
-            <?php if ($sessionManager->isLoggedIn()) : ?>
-                <li><a href="/deconnexion">Se déconnecter</a></li>
-            <?php else : ?>
-                <li><a href="/login">Se connecter</a></li>
-                <li><a href="/s-inscrire">S'inscrire</a></li>
-            <?php endif; ?>
-        </ul>
+        <div class="navbar">
+
+            <div class="navbar-logo">
+                <a href="/"><img src="../assets/images/logo.png" alt="Logo" class="header-logo"></a>
+            </div>
+
+            <div class="navbar-menu">
+                <a href="/contact">Contact</a>
+
+                <?php $user = $sessionManager->getValue('user'); ?>
+                <?php if ($user && $user['user_role'] == 'admin') : ?>
+                    <a href="/admin">Backoffice</a>
+                <?php endif; ?>
+                <?php if ($sessionManager->isLoggedIn()) : ?>
+                    <a href="/deconnexion">Se déconnecter</a>
+                <?php else : ?>
+                    <a href="/login">Se connecter</a>
+                    <a href="/s-inscrire">S'inscrire</a>
+                <?php endif; ?>
+            </div>
     </nav>
 </header>
